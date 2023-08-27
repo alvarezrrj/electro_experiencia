@@ -104,7 +104,7 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 ## Interfaces
 
 ### Rol 
-```php
+```typescript
 {
     id_rol:      int    (11),
     descripcion: string (191 chars max)
@@ -112,7 +112,7 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 ```
 
 ### Usuario 
-```php
+```typescript
 {
     dni:          int    (11) 
     nombre:       string (191 chars max)
