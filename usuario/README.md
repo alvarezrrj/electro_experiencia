@@ -4,6 +4,20 @@
 
 + Puerto: 4200
 
+### Contenidos
+
++ [Crear rol](#crear-rol)
++ [Ver roles](#ver-roles)
++ [Editar un rol](#editar-un-rol)
++ [Eliminar un rol](#eliminar-un-rol)
++ [Crear usuario](#crear-usuario)
++ Ver usuarios
+    - [Por DNI](#ver-usuarios-por-dni)
+    - [Por rol](#ver-usuarios-por-rol)
++ [Editar un usuario](#editar-un-usuario)
++ [Eliminar un usuario](#eliminar-un-usuario)
++ [Interfaces](#interfaces)
+
 
 ### Crear rol
 
