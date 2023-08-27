@@ -25,7 +25,7 @@
 ---|---|
 Method      | POST
 Body (json) | `{ descripcion: string }`
-Returns     | `Rol` (el rol creado)
+Returns     | [Rol](#rol) (el rol creado)
 
 
 ### Ver roles
@@ -34,7 +34,7 @@ Returns     | `Rol` (el rol creado)
 ---|---|
 |Method    | GET                   
 |Parametros| roleId: `int` (opcional)
-|Returns   | `Rol[]`               
+|Returns   | [Rol[]](#rol)
 
 **Nota**: omitir parametro roleId para ver todos los roles
 
@@ -46,7 +46,7 @@ Returns     | `Rol` (el rol creado)
 Method     | POST
 Parametros | rolId: `int`
 Body (json)| `{ descripcion: string }`
-Returns    | `Rol` (el rol editado)
+Returns    | [Rol](#rol) (el rol editado)
 
 
 ### Eliminar un rol
@@ -63,8 +63,8 @@ Returns    | OK 200 si el rol se elimina sin problemas
 |Endpoint: /usuario||
 ---|---|
 Method     | POST
-Body (json)| `Usuario`
-Returns    | `Usuario` (el usuario creado)
+Body (json)| [Usuario](#usuario)
+Returns    | [Usuario](#usuario) (el usuario creado)
 
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
@@ -73,7 +73,7 @@ Returns    | `Usuario` (el usuario creado)
 ---|---|
 Method     | GET
 Parametros | dni: `int` (opcional)
-Returns    | `Usuario[]`
+Returns    | [Usuario](#usuario)
 
 **Nota**: omitir parametro dni para ver todos los usuarios
 
@@ -82,7 +82,7 @@ Returns    | `Usuario[]`
 ---|---|
 Method     | GET
 Parametros | rolId: `int`
-Returns    | `Usuario[]`
+Returns    | [Usuario](#usuario)
 
 ### Editar un usuario
 
@@ -90,8 +90,8 @@ Returns    | `Usuario[]`
 ---|---|
 Method     | POST
 Parametros | dni: `int`
-Body (json)| `Usuario`
-Returns    | `Usuario` (el usuario editado)
+Body (json)| [Usuario](#usuario)
+Returns    | [Usuario](#usuario) (el usuario editado)
 
 ### Eliminar un usuario
 
