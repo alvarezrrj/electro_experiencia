@@ -21,7 +21,7 @@
 
 ### Crear rol
 
-|Endpoint: /rol||
+|Endpoint: `/rol`||
 ---|---|
 Method      | POST
 Body (json) | `{ descripcion: string }`
@@ -30,7 +30,7 @@ Returns     | [`Rol`](#rol) (el rol creado)
 
 ### Ver roles
 
-|Endpoint: /rol/:roleId?||
+|Endpoint: `/rol/:rolId?`||
 ---|---|
 |Method    | GET                   
 |Parametros| roleId: `int` (opcional)
@@ -41,7 +41,7 @@ Returns     | [`Rol`](#rol) (el rol creado)
 
 ### Editar un rol
 
-|Endpoint: /rol/:rolId||
+|Endpoint: `/rol/:rolId`||
 ---|---|
 Method     | POST
 Parametros | rolId: `int`
@@ -51,7 +51,7 @@ Returns    | [`Rol`](#rol) (el rol editado)
 
 ### Eliminar un rol
 
-|Endpoint: /rol/:rolId||
+|Endpoint: `/rol/:rolId`||
 ---|---|
 Method     | DELETE
 Parametros | rolId: `int`
@@ -60,7 +60,7 @@ Returns    | OK 200 si el rol se elimina sin problemas
 
 ### Crear usuario
 
-|Endpoint: /usuario||
+|Endpoint: `/usuario`||
 ---|---|
 Method     | POST
 Body (json)| [`Usuario`](#usuario)
@@ -69,7 +69,7 @@ Returns    | [`Usuario`](#usuario) (el usuario creado)
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
 ### Ver usuarios por dni
-|Endpoint: /usuario/:dni||
+|Endpoint: `/usuario/:dni`||
 ---|---|
 Method     | GET
 Parametros | dni: `int` (opcional)
@@ -78,7 +78,7 @@ Returns    | [`Usuario[]`](#usuario)
 **Nota**: omitir parametro dni para ver todos los usuarios
 
 ### Ver usuarios por rol
-|Endpoint: /rol/:rolId/usuarios||
+|Endpoint: `/rol/:rolId/usuarios`||
 ---|---|
 Method     | GET
 Parametros | rolId: `int`
@@ -86,7 +86,7 @@ Returns    | [`Usuario[]`](#usuario)
 
 ### Editar un usuario
 
-|Endpoint: /usuario/:dni||
+|Endpoint: `/usuario/:dni`||
 ---|---|
 Method     | POST
 Parametros | dni: `int`
@@ -95,7 +95,7 @@ Returns    | [`Usuario`](#usuario) (el usuario editado)
 
 ### Eliminar un usuario
 
-|Endpoint: /usuario/:dni||
+|Endpoint: `/usuario/:dni`||
 ---|---|
 Method     | DELETE
 Parametros | dni: `int`
