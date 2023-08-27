@@ -23,9 +23,9 @@
 
 |Endpoint: /rol||
 ---|---|
-Method  | POST
-Body    | `descripcion: string`
-Returns | Rol (el rol creado)
+Method      | POST
+Body (json) | `{ descripcion: string }`
+Returns     | `Rol` (el rol creado)
 
 
 ### Ver roles
@@ -33,8 +33,8 @@ Returns | Rol (el rol creado)
 |Endpoint: /rol/:roleId?||
 ---|---|
 |Method    | GET                   
-|Parametros| roleId: int (opcional)
-|Returns   | Rol[]                 
+|Parametros| roleId: `int` (opcional)
+|Returns   | `Rol[]`               
 
 **Nota**: omitir parametro roleId para ver todos los roles
 
@@ -44,9 +44,9 @@ Returns | Rol (el rol creado)
 |Endpoint: /rol/:rolId||
 ---|---|
 Method     | POST
-Parametros | rolId: int
-Body       | `descripcion: string`
-Returns    | Rol (el rol editado)
+Parametros | rolId: `int`
+Body (json)| `{ descripcion: string }`
+Returns    | `Rol` (el rol editado)
 
 
 ### Eliminar un rol
@@ -54,7 +54,7 @@ Returns    | Rol (el rol editado)
 |Endpoint: /rol/:rolId||
 ---|---|
 Method     | DELETE
-Parametros | rolId: int
+Parametros | rolId: `int`
 Returns    | OK 200 si el rol se elimina sin problemas
 
 
@@ -63,8 +63,8 @@ Returns    | OK 200 si el rol se elimina sin problemas
 |Endpoint: /usuario||
 ---|---|
 Method     | POST
-Body       | Usuario
-Returns    | Usuario (el usuario creado)
+Body (json)| `Usuario`
+Returns    | `Usuario` (el usuario creado)
 
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
@@ -72,8 +72,8 @@ Returns    | Usuario (el usuario creado)
 |Endpoint: /usuario/:dni||
 ---|---|
 Method     | GET
-Parametros | dni: int (opcional)
-Returns    | Usuario[]
+Parametros | dni: `int` (opcional)
+Returns    | `Usuario[]`
 
 **Nota**: omitir parametro dni para ver todos los usuarios
 
@@ -81,30 +81,30 @@ Returns    | Usuario[]
 |Endpoint: /rol/:rolId/usuarios||
 ---|---|
 Method     | GET
-Parametros | rolId: int
-Returns    | Usuario[]
+Parametros | rolId: `int`
+Returns    | `Usuario[]`
 
 ### Editar un usuario
 
 |Endpoint: /usuario/:dni||
 ---|---|
 Method     | POST
-Parametros | dni: int
-Body       | Usuario
-Returns    | Usuario (el usuario editado)
+Parametros | dni: `int`
+Body (json)| `Usuario`
+Returns    | `Usuario` (el usuario editado)
 
 ### Eliminar un usuario
 
 |Endpoint: /usuario/:dni||
 ---|---|
 Method     | DELETE
-Parametros | dni: int
-Returns    | OK 200 si el rol se elimina sin problemas
+Parametros | dni: `int`
+Returns    | OK 200 si el usuario se elimina sin problemas
 
 ## Interfaces
 
 ### Rol 
-```
+```php
 {
     id_rol:      int    (11),
     descripcion: string (191 chars max)
@@ -112,7 +112,7 @@ Returns    | OK 200 si el rol se elimina sin problemas
 ```
 
 ### Usuario 
-```
+```php
 {
     dni:          int    (11) 
     nombre:       string (191 chars max)
@@ -124,3 +124,4 @@ Returns    | OK 200 si el rol se elimina sin problemas
     rol?:         int    (11)
 }
 ```
+
