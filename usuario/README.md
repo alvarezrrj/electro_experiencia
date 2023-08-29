@@ -2,8 +2,8 @@
 
 ## CRUD roles y usuarios
 
-+ URL: https://electrofix-usuarios-y-roles.onrender.com
-+ Puerto: 4200
++ URL Testing: https://electrofix-usuarios-y-roles.onrender.com
++ Puerto (sólo en producción): 4200
 
 ### Contenidos
 
