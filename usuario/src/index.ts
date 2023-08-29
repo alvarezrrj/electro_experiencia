@@ -63,7 +63,7 @@ app.param('rolId', async (req: RoleRequest, res, next, id) => {
                 id_rol: validated
             },
             include: {
-                usuarios: true,
+                usuarios: req.url.includes('usuarios'),
             }
         });
     } catch (e) {
