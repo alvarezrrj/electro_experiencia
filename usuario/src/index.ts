@@ -26,8 +26,16 @@ export const prisma = new PrismaClient();
  *  description: string
  * }
  */
-app.post('/rol', requiresDescription, (req, res, next) => {
-    createRol(req.body.descripcion)
+app.post('/rol', requiresDescription, async (req, res, next) => {
+    let descripcion = req.body.descripcion.trim().toLowerCase();
+    // Ensure rol doesn't already exist
+    let exists = await findRol(descripcion);
+    if (exists) {
+        let err = new CustomError('Rol ya existe');
+        err.name = '409';
+        return next(err);
+    }
+    createRol(descripcion)
     .then(async (rol) => {
         await prisma.$disconnect();
         res.json(rol);

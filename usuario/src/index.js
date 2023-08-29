@@ -14,8 +14,15 @@ const port = 4200;
 const app = express();
 app.use(bodyParser.json());
 exports.prisma = new client_1.PrismaClient();
-app.post('/rol', rol_middleware_1.requiresDescription, (req, res, next) => {
-    (0, rol_1.createRol)(req.body.descripcion)
+app.post('/rol', rol_middleware_1.requiresDescription, async (req, res, next) => {
+    let descripcion = req.body.descripcion.trim().toLowerCase();
+    let exists = await (0, rol_1.findRol)(descripcion);
+    if (exists) {
+        let err = new interfaces_1.CustomError('Rol ya existe');
+        err.name = '409';
+        return next(err);
+    }
+    (0, rol_1.createRol)(descripcion)
         .then(async (rol) => {
         await exports.prisma.$disconnect();
         res.json(rol);

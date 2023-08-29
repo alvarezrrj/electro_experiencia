@@ -27,6 +27,7 @@ Method      | POST
 Body (json) | `{ descripcion: string }`
 Returns     | [`Rol`](#rol) (el rol creado)
 
+**Nota**: la descripción es convertida a minúsculas. Roles con la misma descripción no están permitidos.
 
 ### Ver roles
 
