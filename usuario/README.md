@@ -126,3 +126,6 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 }
 ```
 
+## Despliegue
+
+Empujar a la rama `master` dispara un despliegue en Render
