@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "API usuario | Servicio de reparacion de electrodomesticos",
   "main": "index.js",
+  "engines": {
+    "node": ">16.13"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
@@ -23,7 +26,6 @@
     "@prisma/client": "^5.2.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "node": "^16.13.*"
+    "express": "^4.18.2"
   }
 }
