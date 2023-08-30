@@ -239,7 +239,7 @@ const processPrismaError = (err) => {
             err.message = `Null constraint violation on the ${err.meta?.constraint}`;
             break;
         case 'P2014':
-            err.message = `El cambio que estás intentando hacer vilaría la relación ${err.meta?.['relation_name']} entre los modelos ${err.meta?.['model_a_name']} y ${err.meta?.['model_b_name']}`;
+            err.message = `El cambio que estás intentando hacer violaría la relación ${err.meta?.['relation_name']} entre los modelos ${err.meta?.['model_a_name']} y ${err.meta?.['model_b_name']}`;
             break;
         case 'P2019':
             err.message = `Input error: ${err.meta?.details}`;

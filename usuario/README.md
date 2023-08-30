@@ -123,7 +123,7 @@ Returns    | OK 200 si el usuario se elimina sin problemas
     contrasena:   string (191 chars max)
     telefono:     string (191 chars max)
     especialidad: string (191 chars max)
-    rol?:         int    (11)
+    rol:         int    (11)
 }
 ```
 
