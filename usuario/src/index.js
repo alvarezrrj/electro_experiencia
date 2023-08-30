@@ -221,18 +221,41 @@ app.delete('/usuario/:dni', async (req, res, next) => {
         exports.prisma.$disconnect();
     }
 });
+const processPrismaError = (err) => {
+    switch (err.code) {
+        case 'P2000':
+            err.message = `Valor demasiado grande para la columna ${err.meta?.['column_name']}`;
+            break;
+        case 'P2003':
+            err.message = 'No se puede eliminar, otras entidades dependen de esta.';
+            break;
+        case 'P2005':
+            err.message = 'Una restrición falló en la BD: ' + err.meta?.['database_error'];
+            break;
+        case 'P2006':
+            err.message = `El valor provisto ${err.meta?.['field_value']} para el campo ${err.meta?.['field_name']} del ${err.meta?.['model_name']} no es válido`;
+            break;
+        case 'P2011':
+            err.message = `Null constraint violation on the ${err.meta?.constraint}`;
+            break;
+        case 'P2014':
+            err.message = `El cambio que estás intentando hacer vilaría la relación ${err.meta?.['relation_name']} entre los modelos ${err.meta?.['model_a_name']} y ${err.meta?.['model_b_name']}`;
+            break;
+        case 'P2019':
+            err.message = `Input error: ${err.meta?.details}`;
+            break;
+        case 'P2020': err.message = `Valor fuera de rango. ${err.meta?.details}`;
+    }
+    return err.message;
+};
 const error = (err, req, res, next) => {
     exports.prisma.$disconnect();
     res.status(parseInt(err.name) || 500);
     if (process.env.ENVIRONMENT === 'production') {
         if (err instanceof client_1.Prisma.PrismaClientKnownRequestError && err.meta) {
-            err.message = '';
-            for (let key in err.meta) {
-                err.message += key + ': ' + err.meta[key] + '\n';
-            }
+            err.message = processPrismaError(err);
         }
         else if (err instanceof client_1.Prisma.PrismaClientValidationError) {
-            console.log('VALIDATION ERROR');
             let message = 'Error de validación de datos ';
             message += err.message.split('Argument')[1].split(' at')[0];
             err.message = message;
