@@ -15,7 +15,7 @@ model Usuario {
     nombre          String
     apellido        String
     email           String
-    contrasena      String
+    contrasena      String  @db.VarChar(255)
     telefono        String
     especialidad    String
     Rol             Rol     @relation(fields: [rol], references: [id_rol])
