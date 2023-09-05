@@ -5,12 +5,14 @@ class CustomError extends Error {
 }
 exports.CustomError = CustomError;
 exports.UserFields = [
-    'dni',
-    'nombre',
-    'apellido',
-    'email',
-    'contrasena',
-    'telefono',
-    'especialidad'
+    "id",
+    "first_name",
+    "last_name",
+    "email",
+    "password",
+    "gender",
+    "username",
+    "history",
+    "rol",
 ];
 //# sourceMappingURL=interfaces.js.map

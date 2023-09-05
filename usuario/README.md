@@ -108,6 +108,7 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 ### Rol 
 ```typescript
 {
+//  nombre       tipo   tamaño
     id_rol:      int    (11),
     descripcion: string (191 chars max)
 }
@@ -116,14 +117,17 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 ### Usuario 
 ```typescript
 {
-    dni:          int    (11) 
-    nombre:       string (191 chars max)
-    apellido:     string (191 chars max)
-    email:        string (191 chars max)
-    contrasena:   string (191 chars max)
-    telefono:     string (191 chars max)
-    especialidad: string (191 chars max)
-    rol:          int    (11)
+//  nombre       tipo   tamaño
+    id:          int    (11) 
+    first_name:  string (191 chars max)
+    last_name:   string (191 chars max)
+    email:       string (191 chars max)
+    // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
+    password:    string (191 chars max)
+    gender:      string (191 chars max)
+    username:    string (191 chars max)
+    history:     int    (20)
+    rol:         int    (11)
 }
 ```
 

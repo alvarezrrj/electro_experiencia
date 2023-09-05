@@ -16,11 +16,13 @@ export interface UserRequest extends Request {
 export class CustomError extends Error {}
 
 export const UserFields = [
-    'dni',               
-    'nombre',       
-    'apellido',     
-    'email',        
-    'contrasena',   
-    'telefono',     
-    'especialidad' 
-]
+  "id",
+  "first_name",
+  "last_name",
+  "email",
+  "password",
+  "gender",
+  "username",
+  "history",
+  "rol",
+];

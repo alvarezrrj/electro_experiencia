@@ -27,39 +27,13 @@ export class User {
     // TODO Check password requirements
     static create: Handler = async (req, res, next) => {
         let data: Usuario = req.body;
-        // validate email
-        let emailValidated = EmailValidator.validate(data.email);
-        if (!emailValidated) {
-            let err = new CustomError('Email inválido');
-            err.name = '400';
-            return next(err);
-        }
+
+        // Hash password
+        let hash = createHash('sha256');
+        hash.update(data.password);
+        data.password = hash.digest('hex');
+        
         try {
-            // Ensure user with same id doesn't exist
-            let userExists = await prisma.usuario.findFirst({
-                where: {
-                    dni: data.dni
-                }
-            });
-            if(userExists) {
-                let err = new CustomError('El usuario con ese dni ya existe');
-                err.name = '400';
-                return next(err);
-            }
-            // Find default rol if one is not assigned
-            if (!data.rol) {
-                let defaultRol = await Rol.findByDescripcion('cliente');
-                if (! defaultRol) {
-                    let err = new CustomError('No pudimos encontrar un rol para asignarle a ese usuario');
-                    err.name = '404';
-                    return next(err);
-                }
-                data.rol = defaultRol.id_rol;
-            }
-            // Hash password
-            let hash = createHash('sha256');
-            hash.update(data.contrasena);
-            data.contrasena = hash.digest('hex');
             let user = await prisma.usuario.create({ data });
             res.json(user);
         } catch (e) {
@@ -74,7 +48,7 @@ export class User {
         try {
             let user = await prisma.usuario.update({
                 where: {
-                    dni: req.users[0].dni
+                    id: req.users[0].id
                 },
                 data
             });
@@ -91,7 +65,7 @@ export class User {
         try {
             await prisma.usuario.delete({
                 where: {
-                    dni: req.users[0].dni
+                    id: req.users[0].id
                 }
             });
             res.send();
@@ -102,18 +76,18 @@ export class User {
         }
     }
     
-    public static userRequestHandler: RequestParamHandler = async (req: UserRequest, res, next, dni) => {
+    public static userRequestHandler: RequestParamHandler = async (req: UserRequest, res, next, id) => {
         let user: Usuario|null;
-        let validated = parseInt(dni);
+        let validated = parseInt(id);
         if (isNaN(validated)) {
-            let err = new CustomError('dni debe ser int');
+            let err = new CustomError('id debe ser int');
             err.name = '400';
             return next(err);
         } 
         try {
             user = await prisma.usuario.findUnique({
                 where: {
-                    dni: validated
+                    id: validated
                 },
                 // include: {
                 //     Rol: true,
