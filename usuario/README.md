@@ -18,7 +18,7 @@
 + [Editar un usuario](#editar-un-usuario)
 + [Eliminar un usuario](#eliminar-un-usuario)
 + [Interfaces](#interfaces)
-
++ [Despliegue](#despliegue)
 
 ### Crear rol
 
@@ -27,6 +27,7 @@
 Method      | POST
 Body (json) | `{ descripcion: string }`
 Returns     | [`Rol`](#rol) (el rol creado)
+Error       | [`Error`](#error)
 
 **Nota**: la descripción es convertida a minúsculas. Roles con la misma descripción no están permitidos.
 
@@ -34,9 +35,10 @@ Returns     | [`Rol`](#rol) (el rol creado)
 
 |Endpoint: `/rol/:rolId?`||
 ---|---|
-|Method    | GET                   
-|Parametros| roleId: `int` (opcional)
-|Returns   | [`Rol[]`](#rol)
+Method    | GET                   
+Parametros| roleId: `int` (opcional)
+Returns   | [`Rol[]`](#rol)
+Error     | [`Error`](#error)
 
 **Nota**: omitir parametro roleId para ver todos los roles
 
@@ -49,6 +51,7 @@ Method     | POST
 Parametros | rolId: `int`
 Body (json)| `{ descripcion: string }`
 Returns    | [`Rol`](#rol) (el rol editado)
+Error      | [`Error`](#error)
 
 
 ### Eliminar un rol
@@ -58,6 +61,7 @@ Returns    | [`Rol`](#rol) (el rol editado)
 Method     | DELETE
 Parametros | rolId: `int`
 Returns    | OK 200 si el rol se elimina sin problemas
+Error     | [`Error`](#error)
 
 
 ### Crear usuario
@@ -67,6 +71,7 @@ Returns    | OK 200 si el rol se elimina sin problemas
 Method     | POST
 Body (json)| [`Usuario`](#usuario)
 Returns    | [`Usuario`](#usuario) (el usuario creado)
+Error     | [`Error`](#error)
 
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
@@ -76,6 +81,7 @@ Returns    | [`Usuario`](#usuario) (el usuario creado)
 Method     | GET
 Parametros | dni: `int` (opcional)
 Returns    | [`Usuario[]`](#usuario)
+Error     | [`Error`](#error)
 
 **Nota**: omitir parametro dni para ver todos los usuarios
 
@@ -85,6 +91,7 @@ Returns    | [`Usuario[]`](#usuario)
 Method     | GET
 Parametros | rolId: `int`
 Returns    | [`Usuario[]`](#usuario)
+Error     | [`Error`](#error)
 
 ### Editar un usuario
 
@@ -94,6 +101,7 @@ Method     | POST
 Parametros | dni: `int`
 Body (json)| [`Usuario`](#usuario)
 Returns    | [`Usuario`](#usuario) (el usuario editado)
+Error     | [`Error`](#error)
 
 ### Eliminar un usuario
 
@@ -102,6 +110,7 @@ Returns    | [`Usuario`](#usuario) (el usuario editado)
 Method     | DELETE
 Parametros | dni: `int`
 Returns    | OK 200 si el usuario se elimina sin problemas
+Error      | [`Error`](#error)
 
 ## Interfaces
 
@@ -109,7 +118,7 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 ```typescript
 {
 //  nombre       tipo   tamaño
-    id_rol:      int    (11),
+    id_rol:      int    (11)
     descripcion: string (191 chars max)
 }
 ```
@@ -128,6 +137,13 @@ Returns    | OK 200 si el usuario se elimina sin problemas
     username:    string (191 chars max)
     history:     int    (20)
     rol:         int    (11)
+}
+```
+
+### Error
+```typescript
+{
+    error: string
 }
 ```
 
