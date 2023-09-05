@@ -11,19 +11,20 @@ datasource db {
 }
 
 model Usuario {
-    dni             Int     @id
-    nombre          String
-    apellido        String
-    email           String
-    contrasena      String  @db.VarChar(255)
-    telefono        String
-    especialidad    String
-    Rol             Rol     @relation(fields: [rol], references: [id_rol])
+    id              Int         @id             // DNI
+    first_name      String
+    last_name       String
+    email           String      @unique
+    password        String      @db.VarChar(64) // 256 bits in hex
+    gender          String
+    username        String      @unique
+    history         BigInt      @db.UnsignedBigInt
     rol             Int     
+    Rol             Rol         @relation(fields: [rol], references: [id_rol])
 }
 
 model Rol {
-    id_rol          Int     @id @default(autoincrement())
-    descripcion     String
+    id_rol          Int         @id @default(autoincrement())
+    descripcion     String      @unique
     usuarios        Usuario[]  
 }

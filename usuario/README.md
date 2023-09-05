@@ -123,10 +123,18 @@ Returns    | OK 200 si el usuario se elimina sin problemas
     contrasena:   string (191 chars max)
     telefono:     string (191 chars max)
     especialidad: string (191 chars max)
-    rol:         int    (11)
+    rol:          int    (11)
 }
 ```
 
 ## Despliegue
 
-Empujar a la rama `master` dispara un despliegue en Render
+Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Luego correr
+
+```bash
+$ npm install
+$ npx prisma migrate
+$ npm run prod
+```
+
+Empujar a la rama `master` dispara un despliegue en Render.

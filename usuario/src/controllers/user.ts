@@ -3,6 +3,8 @@ import { prisma } from "..";
 import { CustomError, UserRequest } from "../interfaces/interfaces";
 import { Rol } from "./rol";
 import { Usuario } from "@prisma/client";
+import * as EmailValidator from 'email-validator';
+const { createHash } = require('node:crypto');
 
 export class User {
 
@@ -22,9 +24,16 @@ export class User {
         res.json(req.users);
     }
         
-    // TO DO encrypt password
+    // TODO Check password requirements
     static create: Handler = async (req, res, next) => {
-        let data = req.body;
+        let data: Usuario = req.body;
+        // validate email
+        let emailValidated = EmailValidator.validate(data.email);
+        if (!emailValidated) {
+            let err = new CustomError('Email inválido');
+            err.name = '400';
+            return next(err);
+        }
         try {
             // Ensure user with same id doesn't exist
             let userExists = await prisma.usuario.findFirst({
@@ -40,8 +49,17 @@ export class User {
             // Find default rol if one is not assigned
             if (!data.rol) {
                 let defaultRol = await Rol.findByDescripcion('cliente');
-                data.rol = defaultRol?.id_rol;
+                if (! defaultRol) {
+                    let err = new CustomError('No pudimos encontrar un rol para asignarle a ese usuario');
+                    err.name = '404';
+                    return next(err);
+                }
+                data.rol = defaultRol.id_rol;
             }
+            // Hash password
+            let hash = createHash('sha256');
+            hash.update(data.contrasena);
+            data.contrasena = hash.digest('hex');
             let user = await prisma.usuario.create({ data });
             res.json(user);
         } catch (e) {
@@ -96,7 +114,10 @@ export class User {
             user = await prisma.usuario.findUnique({
                 where: {
                     dni: validated
-                }
+                },
+                // include: {
+                //     Rol: true,
+                // }
             });
         } catch (e) {
             return next(e);
