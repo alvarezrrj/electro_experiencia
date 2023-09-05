@@ -91,6 +91,9 @@ export class Rol {
         });
     }
 
+    /**
+     * Populate req.roles with roles from db
+     */
     public static rolRequestHandler: RequestParamHandler = async (req: RoleRequest, res, next, id) => {
         let role;
         let validated = parseInt(id);

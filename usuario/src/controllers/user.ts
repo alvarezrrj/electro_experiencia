@@ -1,16 +1,18 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
 import { CustomError, UserRequest } from "../interfaces/interfaces";
-import { Rol } from "./rol";
 import { Usuario } from "@prisma/client";
-import * as EmailValidator from 'email-validator';
 const { createHash } = require('node:crypto');
 
 export class User {
 
     static index: Handler = async (req: UserRequest, res, next) => {
         try {
-            req.users = await prisma.usuario.findMany();
+            req.users = await prisma.usuario.findMany({
+                include: {
+                    Rol: true
+                }
+            });
             res.json(req.users);
         } catch (e) {
             next(e);
@@ -24,7 +26,6 @@ export class User {
         res.json(req.users);
     }
         
-    // TODO Check password requirements
     static create: Handler = async (req, res, next) => {
         let data: Usuario = req.body;
 
@@ -32,7 +33,7 @@ export class User {
         let hash = createHash('sha256');
         hash.update(data.password);
         data.password = hash.digest('hex');
-        
+
         try {
             let user = await prisma.usuario.create({ data });
             res.json(user);
@@ -76,6 +77,9 @@ export class User {
         }
     }
     
+    /**
+     * Populate req.users with users from db
+     */
     public static userRequestHandler: RequestParamHandler = async (req: UserRequest, res, next, id) => {
         let user: Usuario|null;
         let validated = parseInt(id);
@@ -89,9 +93,9 @@ export class User {
                 where: {
                     id: validated
                 },
-                // include: {
-                //     Rol: true,
-                // }
+                include: {
+                    Rol: req.method === 'GET',
+                }
             });
         } catch (e) {
             return next(e);

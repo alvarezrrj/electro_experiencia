@@ -7,7 +7,11 @@ const { createHash } = require('node:crypto');
 class User {
     static index = async (req, res, next) => {
         try {
-            req.users = await __1.prisma.usuario.findMany();
+            req.users = await __1.prisma.usuario.findMany({
+                include: {
+                    Rol: true
+                }
+            });
             res.json(req.users);
         }
         catch (e) {
@@ -85,6 +89,9 @@ class User {
                 where: {
                     id: validated
                 },
+                include: {
+                    Rol: req.method === 'GET',
+                }
             });
         }
         catch (e) {

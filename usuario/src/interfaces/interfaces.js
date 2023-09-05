@@ -12,7 +12,6 @@ exports.UserFields = [
     "password",
     "gender",
     "username",
-    "history",
     "rol",
 ];
 //# sourceMappingURL=interfaces.js.map

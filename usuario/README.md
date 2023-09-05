@@ -61,7 +61,7 @@ Error      | [`Error`](#error)
 Method     | DELETE
 Parametros | rolId: `int`
 Returns    | OK 200 si el rol se elimina sin problemas
-Error     | [`Error`](#error)
+Error      | [`Error`](#error)
 
 
 ### Crear usuario
@@ -71,7 +71,7 @@ Error     | [`Error`](#error)
 Method     | POST
 Body (json)| [`Usuario`](#usuario)
 Returns    | [`Usuario`](#usuario) (el usuario creado)
-Error     | [`Error`](#error)
+Error      | [`Error`](#error)
 
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
@@ -80,8 +80,8 @@ Error     | [`Error`](#error)
 ---|---|
 Method     | GET
 Parametros | dni: `int` (opcional)
-Returns    | [`Usuario[]`](#usuario)
-Error     | [`Error`](#error)
+Returns    | [`UsuarioConRol[]`](#usuarioconrol)
+Error      | [`Error`](#error)
 
 **Nota**: omitir parametro dni para ver todos los usuarios
 
@@ -91,7 +91,7 @@ Error     | [`Error`](#error)
 Method     | GET
 Parametros | rolId: `int`
 Returns    | [`Usuario[]`](#usuario)
-Error     | [`Error`](#error)
+Error      | [`Error`](#error)
 
 ### Editar un usuario
 
@@ -101,7 +101,7 @@ Method     | POST
 Parametros | dni: `int`
 Body (json)| [`Usuario`](#usuario)
 Returns    | [`Usuario`](#usuario) (el usuario editado)
-Error     | [`Error`](#error)
+Error      | [`Error`](#error)
 
 ### Eliminar un usuario
 
@@ -137,6 +137,23 @@ Error      | [`Error`](#error)
     username:    string (191 chars max)
     history:     int    (20)
     rol:         int    (11)
+}
+```
+
+### UsuarioConRol
+```typescript
+{
+//  nombre       tipo   tamaño
+    id:          int    (11) 
+    first_name:  string (191 chars max)
+    last_name:   string (191 chars max)
+    email:       string (191 chars max)
+    // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
+    password:    string (191 chars max)
+    gender:      string (191 chars max)
+    username:    string (191 chars max)
+    history:     int    (20)
+    Rol:         Rol    
 }
 ```
 

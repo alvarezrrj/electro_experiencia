@@ -23,6 +23,5 @@ export const UserFields = [
   "password",
   "gender",
   "username",
-  "history",
   "rol",
 ];

@@ -18,7 +18,6 @@ model Usuario {
     password        String      @db.VarChar(64) // 256 bits in hex
     gender          String
     username        String      @unique
-    history         BigInt      @db.UnsignedBigInt
     rol             Int     
     Rol             Rol         @relation(fields: [rol], references: [id_rol])
 }

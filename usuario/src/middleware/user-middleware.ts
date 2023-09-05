@@ -66,6 +66,7 @@ export const validateUserFields: Handler = async (req, res, next) => {
             }
             data.rol = defaultRol.id_rol;
         }
+        next();
     } catch (e) {
         next(e);
     }

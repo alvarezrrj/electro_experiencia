@@ -23,9 +23,6 @@ export const prisma = new PrismaClient();
  */
 app.post('/rol', requiresDescription, Rol.create);
 
-/**
- * Poblar req.roles con roles presentes en la bd
- */
 app.param('rolId', Rol.rolRequestHandler);
 
 /**
@@ -53,9 +50,7 @@ app.delete('/rol/:rolId', Rol.delete);
  */
 app.post('/usuario', requiresUserFields, validateUserFields, User.create);
 
-/**
- * Populate req.users with users from db
- */
+
 app.param('dni', User.userRequestHandler);
 
 /**
