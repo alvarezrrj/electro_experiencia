@@ -135,7 +135,6 @@ Error      | [`Error`](#error)
     password:    string (191 chars max)
     gender:      string (191 chars max)
     username:    string (191 chars max)
-    history:     int    (20)
     rol:         int    (11)
 }
 ```
@@ -152,7 +151,6 @@ Error      | [`Error`](#error)
     password:    string (191 chars max)
     gender:      string (191 chars max)
     username:    string (191 chars max)
-    history:     int    (20)
     Rol:         Rol    
 }
 ```
