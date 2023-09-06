@@ -52,7 +52,7 @@ class Rol {
                     id_rol: req.roles[0].id_rol
                 },
                 data: {
-                    descripcion: req.body.descripcion.trim().toLowerCase()
+                    descripcion: req.body.descripcion.trim().toLowerCase(),
                 }
             });
             res.json(rol);
