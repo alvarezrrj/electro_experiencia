@@ -2,7 +2,6 @@ import { Handler } from "express";
 import { CustomError } from "../interfaces/interfaces";
 import { Usuario } from "@prisma/client";
 import * as EmailValidator from 'email-validator';
-import { prisma } from "..";
 import { Rol } from "../controllers/rol";
 
 // /**

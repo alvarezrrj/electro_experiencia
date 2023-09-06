@@ -69,8 +69,8 @@ Error      | [`Error`](#error)
 |Endpoint: `/usuario`||
 ---|---|
 Method     | POST
-Body (json)| [`Usuario`](#usuario)
-Returns    | [`Usuario`](#usuario) (el usuario creado)
+Body (json)| [`CamposDeUsuario`](#camposdeusuario)
+Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
 Error      | [`Error`](#error)
 
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
@@ -80,7 +80,7 @@ Error      | [`Error`](#error)
 ---|---|
 Method     | GET
 Parametros | dni: `int` (opcional)
-Returns    | [`UsuarioConRol[]`](#usuarioconrol)
+Returns    | [`Usuario[]`](#usuario)
 Error      | [`Error`](#error)
 
 **Nota**: omitir parametro dni para ver todos los usuarios
@@ -90,17 +90,17 @@ Error      | [`Error`](#error)
 ---|---|
 Method     | GET
 Parametros | rolId: `int`
-Returns    | [`Usuario[]`](#usuario)
+Returns    | [`UsuarioCreado[]`](#usuariocreado)
 Error      | [`Error`](#error)
 
 ### Editar un usuario
 
-|Endpoint: `/usuario/:dni`||
+|Endpoint: `/usuario`||
 ---|---|
-Method     | POST
+Method     | PUT
 Parametros | dni: `int`
-Body (json)| [`Usuario`](#usuario)
-Returns    | [`Usuario`](#usuario) (el usuario editado)
+Body (json)| [`CamposDeUsuario`](#camposdeusuario)
+Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario editado)
 Error      | [`Error`](#error)
 
 ### Eliminar un usuario
@@ -114,43 +114,64 @@ Error      | [`Error`](#error)
 
 ## Interfaces
 
-### Rol 
+
+### Rol
 ```typescript
 {
-//  nombre       tipo   tamaño
-    id_rol:      int    (11)
-    descripcion: string (191 chars max)
+//  nombre       tipo       tamaño
+    id_rol:      int        (11)
+    descripcion: string     (191 chars max)
+    createdAt:   datetime
+    updatedAt:   dateTime
 }
 ```
 
-### Usuario 
+### CamposDeUsuario 
 ```typescript
 {
-//  nombre       tipo   tamaño
-    id:          int    (11) 
-    first_name:  string (191 chars max)
-    last_name:   string (191 chars max)
-    email:       string (191 chars max)
+//  nombre       tipo       tamaño
+    id:          int        (11) 
+    first_name:  string     (191 chars max)
+    last_name:   string     (191 chars max)
+    email:       string     (191 chars max)
     // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
-    password:    string (191 chars max)
-    gender:      string (191 chars max)
-    username:    string (191 chars max)
-    rol:         int    (11)
+    password:    string     (191 chars max)
+    gender:      string     (191 chars max)
+    username:    string     (191 chars max)
+    rol:         int        (11)
 }
 ```
 **Nota**: la contraseña es omitida en pedidos que devuelven usuarios
 
-### UsuarioConRol
+### Usuario
 ```typescript
 {
-//  nombre       tipo   tamaño
-    id:          int    (11) 
-    first_name:  string (191 chars max)
-    last_name:   string (191 chars max)
-    email:       string (191 chars max)
-    gender:      string (191 chars max)
-    username:    string (191 chars max)
+//  nombre       tipo       tamaño
+    id:          int        (11) 
+    first_name:  string     (191 chars max)
+    last_name:   string     (191 chars max)
+    email:       string     (191 chars max)
+    gender:      string     (191 chars max)
+    username:    string     (191 chars max)
+    createdAt:   datetime
+    updatedAt:   dateTime
     Rol:         Rol    
+}
+```
+
+### UsuarioCreado
+```typescript
+{
+//  nombre       tipo       tamaño
+    id:          int        (11) 
+    first_name:  string     (191 chars max)
+    last_name:   string     (191 chars max)
+    email:       string     (191 chars max)
+    gender:      string     (191 chars max)
+    username:    string     (191 chars max)
+    rol:         int        (11)
+    createdAt:   datetime
+    updatedAt:   dateTime
 }
 ```
 

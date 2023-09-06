@@ -22,7 +22,7 @@ app.post('/rol/:rolId', rol_middleware_1.requiresDescription, rol_1.Rol.update);
 app.delete('/rol/:rolId', rol_1.Rol.delete);
 app.post('/usuario', user_middleware_1.validateUserFields, user_1.User.create);
 app.param('dni', user_1.User.userRequestHandler);
-app.post('/usuario/:dni', user_1.User.update);
+app.put('/usuario', user_1.User.update);
 app.get("/usuario", user_1.User.index);
 app.get('/usuario/:dni', user_1.User.show);
 app.get('/rol/:rolId/usuarios', rol_1.Rol.showUsers);

@@ -42,12 +42,10 @@ class User {
     };
     static update = async (req, res, next) => {
         let data = req.body;
-        if (!req.users)
-            return;
         try {
             let user = await __1.prisma.usuario.update({
                 where: {
-                    id: req.users[0].id,
+                    id: data.id,
                 },
                 data,
             });

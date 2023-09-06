@@ -56,7 +56,7 @@ app.param('dni', User.userRequestHandler);
 /**
  * Actualizar usuario
  */
-app.post('/usuario/:dni', User.update);
+app.put('/usuario', User.update);
 
 /**
  * Ver todos los usuarios

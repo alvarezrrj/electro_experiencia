@@ -2,7 +2,6 @@ import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
 import { CustomError, RoleRequest } from "../interfaces/interfaces";
 import { User } from "./user";
-import { Usuario } from "@prisma/client";
 
 export class Rol {
 
