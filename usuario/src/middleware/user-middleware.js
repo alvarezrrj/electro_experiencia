@@ -23,27 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUserFields = exports.requiresUserFields = void 0;
+exports.validateUserFields = void 0;
 const interfaces_1 = require("../interfaces/interfaces");
 const EmailValidator = __importStar(require("email-validator"));
 const rol_1 = require("../controllers/rol");
-const requiresUserFields = (req, res, next) => {
-    let data = req.body;
-    if (!data) {
-        let err = new interfaces_1.CustomError('Data del usuario debe ir en el cuerpo del request');
-        err.name = '400';
-        return next(err);
-    }
-    for (let field of interfaces_1.UserFields) {
-        if (!(field in data)) {
-            let err = new interfaces_1.CustomError('Falta el campo ' + field);
-            err.name = '400';
-            return next(err);
-        }
-    }
-    next();
-};
-exports.requiresUserFields = requiresUserFields;
 const validateUserFields = async (req, res, next) => {
     let data = req.body;
     let emailValidated = EmailValidator.validate(data.email);
@@ -63,7 +46,7 @@ const validateUserFields = async (req, res, next) => {
     }
     try {
         if (!data.rol) {
-            let defaultRol = await rol_1.Rol.findByDescripcion('cliente');
+            let defaultRol = await rol_1.Rol.findByDescripcion('client');
             if (!defaultRol) {
                 let err = new interfaces_1.CustomError('No pudimos encontrar un rol para asignarle a ese usuario');
                 err.name = '404';

@@ -15,13 +15,13 @@ export interface UserRequest extends Request {
 }
 export class CustomError extends Error {}
 
-export const UserFields = [
-  "id",
-  "first_name",
-  "last_name",
-  "email",
-  "password",
-  "gender",
-  "username",
-  "rol",
-];
+// export const UserFields = [
+//   "id",
+//   "first_name",
+//   "last_name",
+//   "email",
+//   "password",
+//   "gender",
+//   "username",
+//   "rol",
+// ];

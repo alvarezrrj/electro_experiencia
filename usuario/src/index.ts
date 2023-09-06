@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 import { Application } from "express";
 import { PrismaClient } from "@prisma/client";
 import { requiresDescription } from "./middleware/rol-middleware";
-import { requiresUserFields, validateUserFields } from "./middleware/user-middleware";
+import { validateUserFields } from "./middleware/user-middleware";
 import { User } from "./controllers/user";
 import { Rol }  from "./controllers/rol";
 import { errorHandler } from "./middleware/error-handler";
@@ -48,7 +48,7 @@ app.delete('/rol/:rolId', Rol.delete);
 /** 
  * Crear usuario
  */
-app.post('/usuario', requiresUserFields, validateUserFields, User.create);
+app.post('/usuario', validateUserFields, User.create);
 
 
 app.param('dni', User.userRequestHandler);
@@ -56,7 +56,7 @@ app.param('dni', User.userRequestHandler);
 /**
  * Actualizar usuario
  */
-app.post('/usuario/:dni', requiresUserFields, User.update);
+app.post('/usuario/:dni', User.update);
 
 /**
  * Ver todos los usuarios
