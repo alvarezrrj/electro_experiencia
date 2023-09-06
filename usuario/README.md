@@ -138,6 +138,7 @@ Error      | [`Error`](#error)
     rol:         int    (11)
 }
 ```
+**Nota**: la contraseña es omitida en pedidos que devuelven usuarios
 
 ### UsuarioConRol
 ```typescript
@@ -147,8 +148,6 @@ Error      | [`Error`](#error)
     first_name:  string (191 chars max)
     last_name:   string (191 chars max)
     email:       string (191 chars max)
-    // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
-    password:    string (191 chars max)
     gender:      string (191 chars max)
     username:    string (191 chars max)
     Rol:         Rol    

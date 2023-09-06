@@ -7,12 +7,12 @@ const { createHash } = require('node:crypto');
 class User {
     static index = async (req, res, next) => {
         try {
-            req.users = await __1.prisma.usuario.findMany({
+            let users = await __1.prisma.usuario.findMany({
                 include: {
-                    Rol: true
-                }
+                    Rol: true,
+                },
             });
-            res.json(req.users);
+            res.json(this.exclude(users, ["password"]));
         }
         catch (e) {
             next(e);
@@ -23,16 +23,18 @@ class User {
     };
     static show = async (req, res, next) => {
         __1.prisma.$disconnect();
-        res.json(req.users);
+        if (!req.users)
+            return next(new Error());
+        res.json(this.exclude(req.users, ["password"]));
     };
     static create = async (req, res, next) => {
         let data = req.body;
-        let hash = createHash('sha256');
+        let hash = createHash("sha256");
         hash.update(data.password);
-        data.password = hash.digest('hex');
+        data.password = hash.digest("hex");
         try {
             let user = await __1.prisma.usuario.create({ data });
-            res.json(user);
+            res.json(this.exclude([user], ["password"])[0]);
         }
         catch (e) {
             next(e);
@@ -45,11 +47,11 @@ class User {
         try {
             let user = await __1.prisma.usuario.update({
                 where: {
-                    id: req.users[0].id
+                    id: req.users[0].id,
                 },
-                data
+                data,
             });
-            res.json(user);
+            res.json(this.exclude([user], ["password"])[0]);
         }
         catch (e) {
             next(e);
@@ -64,8 +66,8 @@ class User {
         try {
             await __1.prisma.usuario.delete({
                 where: {
-                    id: req.users[0].id
-                }
+                    id: req.users[0].id,
+                },
             });
             res.send();
         }
@@ -80,31 +82,34 @@ class User {
         let user;
         let validated = parseInt(id);
         if (isNaN(validated)) {
-            let err = new interfaces_1.CustomError('id debe ser int');
-            err.name = '400';
+            let err = new interfaces_1.CustomError("id debe ser int");
+            err.name = "400";
             return next(err);
         }
         try {
             user = await __1.prisma.usuario.findUnique({
                 where: {
-                    id: validated
+                    id: validated,
                 },
                 include: {
-                    Rol: req.method === 'GET',
-                }
+                    Rol: req.method === "GET",
+                },
             });
         }
         catch (e) {
             return next(e);
         }
         if (!user) {
-            let err = new interfaces_1.CustomError('Usuario no encontrado');
-            err.name = '404';
+            let err = new interfaces_1.CustomError("Usuario no encontrado");
+            err.name = "404";
             return next(err);
         }
         req.users = [user];
         next();
     };
+    static exclude(users, keys) {
+        return users.map((user) => Object.fromEntries(Object.entries(user).filter(([key]) => !keys.includes(key))));
+    }
 }
 exports.User = User;
 //# sourceMappingURL=user.js.map

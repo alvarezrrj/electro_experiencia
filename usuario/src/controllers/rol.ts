@@ -1,6 +1,8 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
 import { CustomError, RoleRequest } from "../interfaces/interfaces";
+import { User } from "./user";
+import { Usuario } from "@prisma/client";
 
 export class Rol {
 
@@ -80,7 +82,7 @@ export class Rol {
 
     public static showUsers: Handler = async (req: RoleRequest, res, next) => {
         if (! req.roles) return;
-        res.json(req.roles[0].usuarios);
+        res.json(User.exclude(req.roles[0].usuarios, ["password"]));
     }
 
     public static async findByDescripcion(descripcion: string) {

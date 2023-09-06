@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rol = void 0;
 const __1 = require("..");
 const interfaces_1 = require("../interfaces/interfaces");
+const user_1 = require("./user");
 class Rol {
     static index = async (req, res, next) => {
         try {
@@ -85,7 +86,7 @@ class Rol {
     static showUsers = async (req, res, next) => {
         if (!req.roles)
             return;
-        res.json(req.roles[0].usuarios);
+        res.json(user_1.User.exclude(req.roles[0].usuarios, ["password"]));
     };
     static async findByDescripcion(descripcion) {
         return await __1.prisma.rol.findFirst({
