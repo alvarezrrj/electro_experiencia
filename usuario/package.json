@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
     "serve": "nodemon src/index.js",
+    "seed": "node src/dbseeder/seed.js",
     "prod": "node src/index.js"
   },
   "author": "Rodrigo Alvarez",

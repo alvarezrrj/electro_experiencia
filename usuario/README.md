@@ -189,7 +189,10 @@ Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Lueg
 ```bash
 $ npm install
 $ npx prisma migrate
+$ npm run seed
 $ npm run prod
 ```
+
+Para instalar dependencias, correr migraciones, poblar la base de datos con roles y usuario administrador e iniciar el servidor.
 
 Empujar a la rama `master` dispara un despliegue en Render.
