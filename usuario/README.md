@@ -267,7 +267,8 @@ Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Lueg
 
 ```bash
 $ npm install
-$ npx prisma migrate
+$ npx prisma migrate deploy
+$ npx prisma generate
 $ npm run seed
 $ npm run prod
 ```
