@@ -1,12 +1,12 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
-import { Reparacion } from "@prisma/client";
+import { ReparacionNomenclada } from "@prisma/client";
 import { CustomError, RepairRequest } from "../interfaces/interfaces";
 
 export class Repair {
   static index: Handler = async (req, res, next) => {
     try {
-      let repairs = await prisma.reparacion.findMany({});
+      let repairs = await prisma.reparacionNomenclada.findMany({});
       res.json(repairs);
     } catch (e) {
       next(e);
@@ -22,10 +22,10 @@ export class Repair {
   };
 
   static create: Handler = async (req, res, next) => {
-    let data: Reparacion = req.body;
+    let data: ReparacionNomenclada = req.body;
 
     try {
-      let repair = await prisma.reparacion.create({ data });
+      let repair = await prisma.reparacionNomenclada.create({ data });
       res.json(repair);
     } catch (e) {
       next(e);
@@ -38,10 +38,10 @@ export class Repair {
         err.name = "404";
         return next(err);
     }
-    let old: Reparacion = req.repairs[0];
+    let old: ReparacionNomenclada = req.repairs[0];
     let data = req.body;
     try {
-      let repair = await prisma.reparacion.update({
+      let repair = await prisma.reparacionNomenclada.update({
         where: {
           id: old.id,
         },
@@ -62,7 +62,7 @@ export class Repair {
         return next(err);
     }
     try {
-      await prisma.reparacion.delete({
+      await prisma.reparacionNomenclada.delete({
         where: {
           id: req.repairs[0].id,
         },
@@ -90,7 +90,7 @@ export class Repair {
       return next(err);
     }
     try {
-      let repair = await prisma.reparacion.findFirst({
+      let repair = await prisma.reparacionNomenclada.findFirst({
         where: {
           OR: [
             {
@@ -128,7 +128,7 @@ export class Repair {
     next,
     id
   ) => {
-    let repair: Reparacion | null;
+    let repair: ReparacionNomenclada | null;
     let validated = parseInt(id);
     if (isNaN(validated)) {
       let err = new CustomError("id debe ser int");
@@ -136,7 +136,7 @@ export class Repair {
       return next(err);
     }
     try {
-      repair = await prisma.reparacion.findUnique({
+      repair = await prisma.reparacionNomenclada.findUnique({
         where: {
           id: validated,
         },

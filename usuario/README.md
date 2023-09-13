@@ -21,7 +21,7 @@
 + [Editar un usuario](#editar-un-usuario)
 + [Eliminar un usuario](#eliminar-un-usuario)
 
-#### Reparaciones Nomencladas
+#### ReparacionNomencladaes Nomencladas
 + [Crear reparación](#crear-reparación)
 + [Editar reparación](#editar-reparación)
 + [Ver reparaciones](#ver-reparaciones)
@@ -127,8 +127,8 @@ Error      | [`Error`](#error)
 |Endpoint: `/reparacion`||
 ---|---|
 Method     | POST
-Body (json)| [`CamposDeReparacion`](#camposdereparacion)
-Returns    | [`Reparacion`](#reparacion) (la reparación creada)
+Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacion)
+Returns    | [`ReparacionNomenclada`](#reparacion) (la reparación creada)
 Error      | [`Error`](#error)
 
 ### Editar reparación
@@ -137,7 +137,7 @@ Error      | [`Error`](#error)
 ---|---|
 Method     | PUT
 Parametros | reparacionId: `int`
-Body (json)| [`CamposDeReparacion`](#camposdereparacion)
+Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacion)
 Returns    | [`Reparación`](#reparacion) (la reparación editada)
 Error      | [`Error`](#error)
 
@@ -147,7 +147,7 @@ Error      | [`Error`](#error)
 ---|---|
 Method    | GET                   
 Parametros| reparacionId: `int` (opcional)
-Returns   | [`Reparacion[]`](#reparacion)
+Returns   | [`ReparacionNomenclada[]`](#reparacion)
 Error     | [`Error`](#error)
 
 **Nota**: omitir parametro reparacionId para ver todas las reparaciones
@@ -157,7 +157,7 @@ Error     | [`Error`](#error)
 ---|---|
 Method    | GET                   
 Parametros| q: `string` (palabras clave a buscar en el nombre y descripción de la reparación)
-Returns   | [`Reparacion`](#reparacion)
+Returns   | [`ReparacionNomenclada`](#reparacion)
 Error     | [`Error`](#error)
 
 
@@ -232,7 +232,7 @@ Error      | [`Error`](#error)
 }
 ```
 
-### CamposDeReparacion
+### CamposDeReparacionNomenclada
 ```typescript
 {
 //  nombre       tipo       tamaño
@@ -241,7 +241,7 @@ Error      | [`Error`](#error)
 }
 ```
 
-### Reparacion
+### ReparacionNomenclada
 ```typescript
 {
 //  nombre       tipo       tamaño

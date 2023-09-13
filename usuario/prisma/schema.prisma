@@ -23,6 +23,8 @@ model Usuario {
     Rol             Rol         @relation(fields: [rol], references: [id_rol])
     createdAt       DateTime    @default(now())
     updatedAt       DateTime    @updatedAt
+
+    @@map("usuarios")
 }
 
 model Rol {
@@ -31,9 +33,11 @@ model Rol {
     usuarios        Usuario[]  
     createdAt       DateTime    @default(now())
     updatedAt       DateTime?   @updatedAt
+
+    @@map("roles")
 }
 
-model Reparacion {
+model ReparacionNomenclada {
     id                Int         @id @default(autoincrement())
     name              String      @unique
     descripcion       String      @db.Text      // 65,535
@@ -41,4 +45,5 @@ model Reparacion {
     updatedAt         DateTime?   @updatedAt
 
     @@fulltext([name, descripcion])
+    @@map("reparaciones_nomencladas")
 }

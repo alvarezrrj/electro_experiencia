@@ -6,7 +6,7 @@ const interfaces_1 = require("../interfaces/interfaces");
 class Repair {
     static index = async (req, res, next) => {
         try {
-            let repairs = await __1.prisma.reparacion.findMany({});
+            let repairs = await __1.prisma.reparacionNomenclada.findMany({});
             res.json(repairs);
         }
         catch (e) {
@@ -25,7 +25,7 @@ class Repair {
     static create = async (req, res, next) => {
         let data = req.body;
         try {
-            let repair = await __1.prisma.reparacion.create({ data });
+            let repair = await __1.prisma.reparacionNomenclada.create({ data });
             res.json(repair);
         }
         catch (e) {
@@ -41,7 +41,7 @@ class Repair {
         let old = req.repairs[0];
         let data = req.body;
         try {
-            let repair = await __1.prisma.reparacion.update({
+            let repair = await __1.prisma.reparacionNomenclada.update({
                 where: {
                     id: old.id,
                 },
@@ -63,7 +63,7 @@ class Repair {
             return next(err);
         }
         try {
-            await __1.prisma.reparacion.delete({
+            await __1.prisma.reparacionNomenclada.delete({
                 where: {
                     id: req.repairs[0].id,
                 },
@@ -90,7 +90,7 @@ class Repair {
             return next(err);
         }
         try {
-            let repair = await __1.prisma.reparacion.findFirst({
+            let repair = await __1.prisma.reparacionNomenclada.findFirst({
                 where: {
                     OR: [
                         {
@@ -129,7 +129,7 @@ class Repair {
             return next(err);
         }
         try {
-            repair = await __1.prisma.reparacion.findUnique({
+            repair = await __1.prisma.reparacionNomenclada.findUnique({
                 where: {
                     id: validated,
                 },

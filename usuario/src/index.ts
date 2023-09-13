@@ -88,7 +88,7 @@ app.delete('/usuario/:dni', User.delete);
 
 // ========= Fin Usuario =========
 
-// ========= Reparaciones =========
+// ========= ReparacionNomencladaes =========
 
 /**
  * Crear reparacion
@@ -122,7 +122,7 @@ app.put('/reparacion/:repairId', Repair.update);
  */
 app.delete('/reparacion/:repairId', Repair.delete);
 
-// ========= Fin Reparaciones =========
+// ========= Fin ReparacionNomencladaes =========
 
 
 /**
