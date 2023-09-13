@@ -66,8 +66,11 @@ class Rol {
         }
     };
     static delete = async (req, res, next) => {
-        if (!req.roles)
-            return;
+        if (!req.roles) {
+            let err = new interfaces_1.CustomError('Not found');
+            err.name = "404";
+            return next(err);
+        }
         try {
             await __1.prisma.rol.delete({
                 where: {

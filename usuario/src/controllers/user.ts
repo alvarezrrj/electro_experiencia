@@ -62,7 +62,11 @@ export class User {
   };
 
   public static delete: Handler = async (req: UserRequest, res, next) => {
-    if (!req.users) return;
+    if (!req.users) {
+      let err = new CustomError('Not found');
+      err.name = "404";
+      return next(err);
+    }
     try {
       await prisma.usuario.delete({
         where: {

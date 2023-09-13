@@ -1,9 +1,7 @@
-import { Prisma, Rol, Usuario } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
+import { Reparacion, Usuario } from "@prisma/client";
 import { Request } from "express";
 
 export interface RoleRequest extends Request {
-    // roles?: Rol[];
     roles?: {
         usuarios: Usuario[];
         id_rol: number;
@@ -13,15 +11,8 @@ export interface RoleRequest extends Request {
 export interface UserRequest extends Request {
     users?: Usuario[];
 }
-export class CustomError extends Error {}
+export interface RepairRequest extends Request {
+    repairs?: Reparacion[];
+}
 
-// export const UserFields = [
-//   "id",
-//   "first_name",
-//   "last_name",
-//   "email",
-//   "password",
-//   "gender",
-//   "username",
-//   "rol",
-// ];
+export class CustomError extends Error {}

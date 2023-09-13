@@ -1,22 +1,34 @@
-# API usuarios
+# ElextroFix APIs
 
-## CRUD roles y usuarios
+## CRUD roles, usuarios y reparaciones nomencladas
 
 + URL Testing: https://electrofix-usuarios-y-roles.onrender.com
 + Puerto (sólo en producción): 4200
 
 ### Contenidos
 
+#### Roles
 + [Crear rol](#crear-rol)
 + [Ver roles](#ver-roles)
 + [Editar un rol](#editar-un-rol)
 + [Eliminar un rol](#eliminar-un-rol)
+
+#### Usuarios
 + [Crear usuario](#crear-usuario)
 + Ver usuarios
     - [Por DNI](#ver-usuarios-por-dni)
     - [Por rol](#ver-usuarios-por-rol)
 + [Editar un usuario](#editar-un-usuario)
 + [Eliminar un usuario](#eliminar-un-usuario)
+
+#### Reparaciones Nomencladas
++ [Crear reparación](#crear-reparación)
++ [Editar reparación](#editar-reparación)
++ [Ver reparaciones](#ver-reparaciones)
++ [Buscar reparación](#buscar-reparación)
++ [Eliminar reparación](#eliminar-reparación)
+
+#### Otros
 + [Interfaces](#interfaces)
 + [Despliegue](#despliegue)
 
@@ -98,7 +110,6 @@ Error      | [`Error`](#error)
 |Endpoint: `/usuario`||
 ---|---|
 Method     | PUT
-Parametros | dni: `int`
 Body (json)| [`CamposDeUsuario`](#camposdeusuario)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario editado)
 Error      | [`Error`](#error)
@@ -112,8 +123,54 @@ Parametros | dni: `int`
 Returns    | OK 200 si el usuario se elimina sin problemas
 Error      | [`Error`](#error)
 
-## Interfaces
+### Crear reparación
+|Endpoint: `/reparacion`||
+---|---|
+Method     | POST
+Body (json)| [`CamposDeReparacion`](#camposdereparacion)
+Returns    | [`Reparacion`](#reparacion) (la reparación creada)
+Error      | [`Error`](#error)
 
+### Editar reparación
+
+|Endpoint: `/reparacion/:reparacionId`||
+---|---|
+Method     | PUT
+Parametros | reparacionId: `int`
+Body (json)| [`CamposDeReparacion`](#camposdereparacion)
+Returns    | [`Reparación`](#reparacion) (la reparación editada)
+Error      | [`Error`](#error)
+
+### Ver reparaciones
+
+|Endpoint: `/reparacion/:reparacionId?`||
+---|---|
+Method    | GET                   
+Parametros| reparacionId: `int` (opcional)
+Returns   | [`Reparacion[]`](#reparacion)
+Error     | [`Error`](#error)
+
+**Nota**: omitir parametro reparacionId para ver todas las reparaciones
+
+### Buscar reparación
+|Endpoint: `/reparacion/search?q=search_string`||
+---|---|
+Method    | GET                   
+Parametros| q: `string` (palabras clave a buscar en el nombre y descripción de la reparación)
+Returns   | [`Reparacion`](#reparacion)
+Error     | [`Error`](#error)
+
+
+### Eliminar reparación
+
+|Endpoint: `/reparacion/:reparacionId`||
+---|---|
+Method     | DELETE
+Parametros | reparacionId: `int`
+Returns    | OK 200 si la reparación se elimina sin problemas
+Error      | [`Error`](#error)
+
+## Interfaces
 
 ### Rol
 ```typescript
@@ -121,7 +178,7 @@ Error      | [`Error`](#error)
 //  nombre       tipo       tamaño
     id_rol:      int        (11)
     descripcion: string     (191 chars max)
-    createdAt:   datetime
+    createdAt:   dateTime
     updatedAt:   dateTime
 }
 ```
@@ -153,7 +210,7 @@ Error      | [`Error`](#error)
     email:       string     (191 chars max)
     gender:      string     (191 chars max)
     username:    string     (191 chars max)
-    createdAt:   datetime
+    createdAt:   dateTime
     updatedAt:   dateTime
     Rol:         Rol    
 }
@@ -170,10 +227,32 @@ Error      | [`Error`](#error)
     gender:      string     (191 chars max)
     username:    string     (191 chars max)
     rol:         int        (11)
-    createdAt:   datetime
+    createdAt:   dateTime
     updatedAt:   dateTime
 }
 ```
+
+### CamposDeReparacion
+```typescript
+{
+//  nombre       tipo       tamaño
+    name         string     (191)
+    descripcion  string     (65,535)
+}
+```
+
+### Reparacion
+```typescript
+{
+//  nombre       tipo       tamaño
+    id           int        (11)
+    name         string     (191)
+    descripcion  string     (65,535)
+    createdAt    dateTime
+    updatedAt    dateTime
+}
+```
+
 
 ### Error
 ```typescript
