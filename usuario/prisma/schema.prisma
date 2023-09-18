@@ -12,38 +12,55 @@ datasource db {
 }
 
 model Usuario {
-    id              Int         @id             // DNI
-    first_name      String
-    last_name       String
-    email           String      @unique
-    password        String      @db.VarChar(64) // 256 bits in hex
-    gender          String
-    username        String      @unique
-    rol             Int     
-    Rol             Rol         @relation(fields: [rol], references: [id_rol])
-    createdAt       DateTime    @default(now())
-    updatedAt       DateTime    @updatedAt
+  id              Int         @id             // DNI
+  first_name      String
+  last_name       String
+  email           String      @unique
+  password        String      @db.VarChar(64) // 256 bits in hex
+  gender          String
+  username        String      @unique
+  rol             Int     
+  Rol             Rol         @relation(fields: [rol], references: [id_rol])
+  Recepciones     Recepcion[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 
-    @@map("usuarios")
+  @@map("usuarios")
 }
 
 model Rol {
-    id_rol          Int         @id @default(autoincrement())
-    descripcion     String      @unique
-    usuarios        Usuario[]  
-    createdAt       DateTime    @default(now())
-    updatedAt       DateTime?   @updatedAt
+  id_rol          Int         @id @default(autoincrement())
+  descripcion     String      @unique
+  usuarios        Usuario[]  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime?   @updatedAt
 
-    @@map("roles")
+  @@map("roles")
 }
 
 model ReparacionNomenclada {
-    id                Int         @id @default(autoincrement())
-    name              String      @unique
-    descripcion       String      @db.Text      // 65,535
-    createdAt         DateTime    @default(now())
-    updatedAt         DateTime?   @updatedAt
+  id                Int         @id @default(autoincrement())
+  name              String      @unique
+  descripcion       String      @db.Text      // 65,535
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime?   @updatedAt
 
-    @@fulltext([name, descripcion])
-    @@map("reparaciones_nomencladas")
+  @@fulltext([name, descripcion])
+  @@map("reparaciones_nomencladas")
+}
+
+model Recepcion {
+  id                Int         @id @default(autoincrement())
+  first_name        String
+  last_name         String
+  email             String      @unique
+  telefono          String      @db.VarChar(15)
+  equipo            String
+  descripcion       String      @db.Text      // 65,535
+  employee_id       Int         
+  Employee          Usuario     @relation(fields: [employee_id], references: [id])
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@map("recepciones")
 }

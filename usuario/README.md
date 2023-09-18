@@ -1,6 +1,6 @@
 # ElextroFix APIs
 
-## CRUD roles, usuarios y reparaciones nomencladas
+## Roles, Usuarios, Reparaciones Nomencladas y Recepciones
 
 + URL Testing: https://electrofix-usuarios-y-roles.onrender.com
 + Puerto (sólo en producción): 4200
@@ -21,12 +21,18 @@
 + [Editar un usuario](#editar-un-usuario)
 + [Eliminar un usuario](#eliminar-un-usuario)
 
-#### ReparacionNomencladaes Nomencladas
+#### Reparaciones Nomencladas
 + [Crear reparación](#crear-reparación)
 + [Editar reparación](#editar-reparación)
 + [Ver reparaciones](#ver-reparaciones)
 + [Buscar reparación](#buscar-reparación)
 + [Eliminar reparación](#eliminar-reparación)
+
+#### Recepciones
++ [Crear recepción](#crear-recepción)
++ [Ver recepciones](#ver-recepciones)
++ [Editar recepción](#editar-recepcion)
++ [Eliminar recepción]()
 
 #### Otros
 + [Interfaces](#interfaces)
@@ -48,7 +54,7 @@ Error       | [`Error`](#error)
 |Endpoint: `/rol/:rolId?`||
 ---|---|
 Method    | GET                   
-Parametros| roleId: `int` (opcional)
+Parametros| rolId: `int` (opcional)
 Returns   | [`Rol[]`](#rol)
 Error     | [`Error`](#error)
 
@@ -127,7 +133,7 @@ Error      | [`Error`](#error)
 |Endpoint: `/reparacion`||
 ---|---|
 Method     | POST
-Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacion)
+Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
 Returns    | [`ReparacionNomenclada`](#reparacion) (la reparación creada)
 Error      | [`Error`](#error)
 
@@ -170,6 +176,44 @@ Parametros | reparacionId: `int`
 Returns    | OK 200 si la reparación se elimina sin problemas
 Error      | [`Error`](#error)
 
+### Crear recepción
+|Endpoint: `/recepcion`||
+---|---|
+Method     | POST
+Body (json)| [`CamposDeRecepcion`](#camposderecepcion)
+Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción creada)
+Error      | [`Error`](#error)
+
+**Nota**: `employee_id` debe ser el `id` de un usuario con `rol` "employee"
+
+### Ver recepciones
+
+|Endpoint: `/recepcion/:recepcionId?`||
+---|---|
+Method    | GET                   
+Parametros| recepcionId: `int` (opcional)
+Returns   | [`Recepcion[]`](#recepcion)
+Error     | [`Error`](#error)
+
+**Nota**: omitir parametro recepcionId para ver todas las recepciones
+
+### Editar recepción
+|Endpoint: `/recepcion/:recepcionId`||
+---|---|
+Method     | PUT
+Parametros | recepcionId: `int`
+Body (json)| [`CamposDeRecepcion`](#camposderecepcion)
+Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción editada)
+Error      | [`Error`](#error)
+
+### Eliminar recepción
+|Endpoint: `/recepcion/:recepcionId`||
+---|---|
+Method     | DELETE
+Parametros | recepcionId: `int`
+Returns    | OK 200 si la recepción se elimina sin problemas
+Error      | [`Error`](#error)
+
 ## Interfaces
 
 ### Rol
@@ -192,7 +236,7 @@ Error      | [`Error`](#error)
     last_name:   string     (191 chars max)
     email:       string     (191 chars max)
     // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
-    password:    string     (191 chars max)
+    password:    string     
     gender:      string     (191 chars max)
     username:    string     (191 chars max)
     rol:         int        (11)
@@ -253,6 +297,54 @@ Error      | [`Error`](#error)
 }
 ```
 
+### CamposDeRecepcion
+```typescript
+{
+//  nombre       tipo       tamaño
+    first_name   string     (191)
+    last_name    string     (191)
+    email        string     (191)
+    telefono     string     (15)
+    equipo       string     (191)
+    descripcion  string     (65,535)
+    employee_id  int        (11)
+}
+```
+
+### Recepcion 
+```typescript
+{
+//  nombre       tipo       tamaño
+    id           int        (11) 
+    first_name   string     (191)
+    last_name    string     (191)
+    email        string     (191)
+    telefono     string     (15)
+    equipo       string     (191)
+    descripcion  string     (65,535)
+    employee_id  int        (11)
+    Employee     Usuario     
+    createdAt    dateTime    
+    updatedAt    dateTime    
+}
+```
+
+### RecepcionCreada
+```typescript
+{
+//  nombre       tipo       tamaño
+    id           int        (11) 
+    first_name   string     (191)
+    last_name    string     (191)
+    email        string     (191)
+    telefono     string     (15)
+    equipo       string     (191)
+    descripcion  string     (65,535)
+    employee_id  int        (11)
+    createdAt    dateTime    
+    updatedAt    dateTime    
+}
+```
 
 ### Error
 ```typescript
@@ -273,6 +365,6 @@ $ npm run seed
 $ npm run prod
 ```
 
-Para instalar dependencias, correr migraciones, poblar la base de datos con roles y usuario administrador e iniciar el servidor.
+Para instalar dependencias, correr migraciones, generar el cliente de Prisma, poblar la base de datos con roles y usuario administrador e iniciar el servidor.
 
 Empujar a la rama `master` dispara un despliegue en Render.

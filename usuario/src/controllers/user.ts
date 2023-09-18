@@ -119,7 +119,7 @@ export class User {
     next();
   };
 
-  static exclude(users: Usuario[], keys: string[]) {
+  public static exclude(users: Usuario[], keys: string[]) {
     return users.map((user) =>
       Object.fromEntries(
         Object.entries(user).filter(([key]) => !keys.includes(key))

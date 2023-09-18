@@ -3,6 +3,9 @@ import { prisma } from "..";
 import { ReparacionNomenclada } from "@prisma/client";
 import { CustomError, RepairRequest } from "../interfaces/interfaces";
 
+/**
+ * Reparaciones Nomencladas
+ */
 export class Repair {
   static index: Handler = async (req, res, next) => {
     try {
@@ -22,7 +25,7 @@ export class Repair {
   };
 
   static create: Handler = async (req, res, next) => {
-    let data: ReparacionNomenclada = req.body;
+    let data: Omit<ReparacionNomenclada, 'id' | 'createdAt' | 'updatedAt'> = req.body;
 
     try {
       let repair = await prisma.reparacionNomenclada.create({ data });

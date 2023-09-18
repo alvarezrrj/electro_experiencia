@@ -9,6 +9,7 @@ import { User } from "./controllers/user";
 import { Rol }  from "./controllers/rol";
 import { errorHandler } from "./middleware/error-handler";
 import { Repair } from "./controllers/repair";
+import { Reception } from "./controllers/reception";
 
 // Load environment variables
 require('dotenv').config();
@@ -98,7 +99,7 @@ app.post('/reparacion', Repair.create);
 /**
  * Ver todas las reparaciones  
  */
-app.get("/reparacion/", Repair.index);
+app.get("/reparacion", Repair.index);
 
 /**
  * Buscar reparacion por palabra clave
@@ -123,6 +124,38 @@ app.put('/reparacion/:repairId', Repair.update);
 app.delete('/reparacion/:repairId', Repair.delete);
 
 // ========= Fin ReparacionNomencladaes =========
+
+// ========= Recepciones =========
+
+/**
+ * Crear recepción
+ */
+app.post('/recepcion', Reception.create);
+
+/**
+ * Ver todas las recepciones
+ */
+app.get('/recepcion', Reception.index)
+
+app.param('receptionId', Reception.receptionRequestHandler);
+
+/**
+ * Ver recepción por recepcionId
+ */
+app.get('/recepcion/:receptionId', Reception.show);
+
+/**
+ * Actualizar recepción
+ */
+app.put('/recepcion/:receptionId', Reception.update);
+
+/**
+ * Eliminar recepción
+ */
+app.delete('/recepcion/:receptionId', Reception.delete);
+
+// ========= Fin Recepciones =========
+
 
 
 /**

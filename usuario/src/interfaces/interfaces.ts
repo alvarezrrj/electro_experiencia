@@ -1,4 +1,4 @@
-import { ReparacionNomenclada, Usuario } from "@prisma/client";
+import { Recepcion, ReparacionNomenclada, Usuario } from "@prisma/client";
 import { Request } from "express";
 
 export interface RoleRequest extends Request {
@@ -14,5 +14,25 @@ export interface UserRequest extends Request {
 export interface RepairRequest extends Request {
     repairs?: ReparacionNomenclada[];
 }
+export interface ReceptionRequest extends Request {
+    receptions?: Recepcion[];
+}
 
 export class CustomError extends Error {}
+
+/**
+ * Static Details
+ */
+export class SD {
+    static readonly ROLES = {
+        /**
+         * IT department
+         */
+        ADMIN: 'admin',
+        CLIENT: 'client',
+        /**
+         * Technician
+         */
+        EMPLOYEE: 'employee',
+    }
+}
