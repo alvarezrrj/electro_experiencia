@@ -15,9 +15,13 @@
 
 #### Usuarios
 + [Crear usuario](#crear-usuario)
++ [Crear cliente](#crear-cliente)
++ [Crear empleado](#crear-empleado)
 + Ver usuarios
     - [Por DNI](#ver-usuarios-por-dni)
     - [Por rol](#ver-usuarios-por-rol)
+    - [Ver clientes](#ver-clientes)
+    - [Ver empleados](#ver-empleados)
 + [Editar un usuario](#editar-un-usuario)
 + [Eliminar un usuario](#eliminar-un-usuario)
 
@@ -32,7 +36,7 @@
 + [Crear recepción](#crear-recepción)
 + [Ver recepciones](#ver-recepciones)
 + [Editar recepción](#editar-recepcion)
-+ [Eliminar recepción]()
++ [Eliminar recepción](#eliminar-recepción)
 
 #### Otros
 + [Interfaces](#interfaces)
@@ -93,6 +97,24 @@ Error      | [`Error`](#error)
 
 **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
+### Crear cliente
+
+|Endpoint: `/usuario/clientes`||
+---|---|
+Method     | POST
+Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
+Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
+Error      | [`Error`](#error)
+
+### Crear empleado
+
+|Endpoint: `/usuario/empleado`||
+---|---|
+Method     | POST
+Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
+Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
+Error      | [`Error`](#error)
+
 ### Ver usuarios por dni
 |Endpoint: `/usuario/:dni`||
 ---|---|
@@ -109,6 +131,22 @@ Error      | [`Error`](#error)
 Method     | GET
 Parametros | rolId: `int`
 Returns    | [`UsuarioCreado[]`](#usuariocreado)
+Error      | [`Error`](#error)
+
+### Ver clientes
+
+|Endpoint: `/usuario/clientes`||
+---|---|
+Method     | GET
+Returns    | [`Usuario[]`](#usuario)
+Error      | [`Error`](#error)
+
+### Ver empleados
+
+|Endpoint: `/usuario/empleados`||
+---|---|
+Method     | GET
+Returns    | [`Usuario[]`](#usuario)
 Error      | [`Error`](#error)
 
 ### Editar un usuario
@@ -242,7 +280,6 @@ Error      | [`Error`](#error)
     rol:         int        (11)
 }
 ```
-**Nota**: la contraseña es omitida en pedidos que devuelven usuarios
 
 ### Usuario
 ```typescript

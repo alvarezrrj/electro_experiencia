@@ -27,6 +27,25 @@ class User {
             return next(new Error());
         res.json(this.exclude(req.users, ["password"]));
     };
+    static listByRole = async (req, res, next) => {
+        try {
+            let users = await __1.prisma.usuario.findMany({
+                where: {
+                    rol: req.body.rol
+                },
+                include: {
+                    Rol: true,
+                },
+            });
+            res.json(this.exclude(users, ["password"]));
+        }
+        catch (e) {
+            next(e);
+        }
+        finally {
+            __1.prisma.$disconnect();
+        }
+    };
     static create = async (req, res, next) => {
         let data = req.body;
         let hash = createHash("sha256");

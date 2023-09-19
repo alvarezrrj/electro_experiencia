@@ -4,7 +4,7 @@ const qs = require('qs');
 import { Application } from "express";
 import { PrismaClient } from "@prisma/client";
 import { requiresDescription } from "./middleware/rol-middleware";
-import { validateUserFields } from "./middleware/user-middleware";
+import { extractRoleFromUrl, validateUserFields } from "./middleware/user-middleware";
 import { User } from "./controllers/user";
 import { Rol }  from "./controllers/rol";
 import { errorHandler } from "./middleware/error-handler";
@@ -55,12 +55,19 @@ app.delete('/rol/:rolId', Rol.delete);
 // ========= Usuario =========
 
 /** 
- * Crear usuario
+ * Crear usuario (cualquier usuario, rol debe ser incluido en el body)
  */
 app.post('/usuario', validateUserFields, User.create);
 
+/**
+ * Crear cliente
+ */
+app.post('/usuario/clientes', validateUserFields, extractRoleFromUrl, User.create);
 
-app.param('dni', User.userRequestHandler);
+/**
+ * Crear empleado
+ */
+app.post('/usuario/empleados', validateUserFields, extractRoleFromUrl, User.create);
 
 /**
  * Actualizar usuario
@@ -73,6 +80,18 @@ app.put('/usuario', User.update);
 app.get("/usuario", User.index);
 
 /**
+ * Ver clientes
+ */
+app.get('/usuario/clientes', extractRoleFromUrl, User.listByRole);
+
+/**
+ * Ver empleados
+ */
+app.get('/usuario/empleados', extractRoleFromUrl, User.listByRole);
+
+app.param('dni', User.userRequestHandler);
+
+/**
  * Ver usuario por DNI
  */
 app.get('/usuario/:dni', User.show);
@@ -81,6 +100,7 @@ app.get('/usuario/:dni', User.show);
  * Ver usuarios por rolId
  */
 app.get('/rol/:rolId/usuarios', Rol.showUsers);
+
 
 /**
  * Eliminar usuario

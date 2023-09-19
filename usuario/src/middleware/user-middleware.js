@@ -23,10 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUserFields = void 0;
+exports.extractRoleFromUrl = exports.validateUserFields = void 0;
 const interfaces_1 = require("../interfaces/interfaces");
 const EmailValidator = __importStar(require("email-validator"));
 const rol_1 = require("../controllers/rol");
+const __1 = require("..");
 const validateUserFields = async (req, res, next) => {
     let data = req.body;
     let emailValidated = EmailValidator.validate(data.email);
@@ -61,4 +62,19 @@ const validateUserFields = async (req, res, next) => {
     }
 };
 exports.validateUserFields = validateUserFields;
+const extractRoleFromUrl = async (req, res, next) => {
+    for (let [key, role] of Object.entries(interfaces_1.SD.ROLES)) {
+        if (req.url.includes(role.toLowerCase())) {
+            let rol = await __1.prisma.rol.findFirst({
+                where: {
+                    descripcion: role
+                }
+            });
+            req.body.rol = rol?.id_rol;
+            break;
+        }
+    }
+    next();
+};
+exports.extractRoleFromUrl = extractRoleFromUrl;
 //# sourceMappingURL=user-middleware.js.map

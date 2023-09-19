@@ -24,15 +24,15 @@ export class CustomError extends Error {}
  * Static Details
  */
 export class SD {
-    static readonly ROLES = {
+    static readonly ROLES: {[key: string]: string} = {
         /**
          * IT department
          */
         ADMIN: 'admin',
-        CLIENT: 'client',
+        CLIENT: 'cliente',
         /**
          * Technician
          */
-        EMPLOYEE: 'employee',
+        EMPLOYEE: 'empleado',
     }
 }

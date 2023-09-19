@@ -1,8 +1,9 @@
 import { Handler } from "express";
-import { CustomError } from "../interfaces/interfaces";
+import { CustomError, SD } from "../interfaces/interfaces";
 import { Usuario } from "@prisma/client";
 import * as EmailValidator from 'email-validator';
 import { Rol } from "../controllers/rol";
+import { prisma } from "..";
 
 // /**
 // * Ensure all required fields are present for adding/editing users
@@ -58,3 +59,21 @@ export const validateUserFields: Handler = async (req, res, next) => {
         next(e);
     }
 };
+
+/**
+ * Populate req.body.rol with id_rol corresponding to role in URL
+ */
+export const extractRoleFromUrl: Handler = async (req, res, next) => {
+    for (let [key, role] of Object.entries(SD.ROLES)) {
+        if (req.url.includes(role.toLowerCase())) {
+            let rol = await prisma.rol.findFirst({
+                where: {
+                    descripcion: role
+                }
+            });
+            req.body.rol = rol?.id_rol;
+            break;
+        }
+    }
+    next();
+}

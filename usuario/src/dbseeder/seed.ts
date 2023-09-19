@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { SD } from "../interfaces/interfaces";
 
 export const prisma = new PrismaClient();
 
@@ -12,7 +13,7 @@ export const prisma = new PrismaClient();
 async function seed() {
     let adminRol = await prisma.rol.findUnique({
         where: {
-            descripcion: 'admin'
+            descripcion: SD.ROLES.ADMIN
         }
     });
     
@@ -21,13 +22,13 @@ async function seed() {
         await prisma.rol.deleteMany({});
         adminRol = await prisma.rol.create({
             data: {
-                descripcion: 'admin'
+                descripcion: SD.ROLES.ADMIN
             }
         });
         await prisma.rol.createMany({
             data: [
-                { descripcion: 'client' },
-                { descripcion: 'employee' },
+                { descripcion: SD.ROLES.CLIENT },
+                { descripcion: SD.ROLES.EMPLOYEE },
             ]
         });
     }
@@ -35,7 +36,7 @@ async function seed() {
     let adminExists = await prisma.usuario.findFirst({
         where: {
             Rol: {
-                descripcion: 'admin'
+                descripcion: SD.ROLES.ADMIN
             }
         }
     });

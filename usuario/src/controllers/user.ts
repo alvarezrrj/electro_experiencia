@@ -1,6 +1,6 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
-import { CustomError, UserRequest } from "../interfaces/interfaces";
+import { CustomError, SD, UserRequest } from "../interfaces/interfaces";
 import { Usuario } from "@prisma/client";
 const { createHash } = require('node:crypto');
 
@@ -8,9 +8,9 @@ export class User {
   static index: Handler = async (req: UserRequest, res, next) => {
     try {
       let users = await prisma.usuario.findMany({
-        include: {
-          Rol: true,
-        },
+          include: {
+            Rol: true,
+          },
       });
       res.json(this.exclude(users, ["password"]));
     } catch (e) {
@@ -26,8 +26,26 @@ export class User {
     res.json(this.exclude(req.users, ["password"]));
   };
 
+  static listByRole: Handler = async (req, res, next) => {
+    try {
+      let users = await prisma.usuario.findMany({
+        where: {
+          rol: req.body.rol
+        },
+        include: {
+          Rol: true,
+        },
+      });
+      res.json(this.exclude(users, ["password"]));
+    } catch (e) {
+      next(e);
+    } finally {
+      prisma.$disconnect();
+    }
+  }
+
   static create: Handler = async (req, res, next) => {
-    let data: Usuario = req.body;
+    let data: Omit<Usuario, 'createdAt' | 'updatedAt'>  = req.body;
 
     // Hash password
     let hash = createHash("sha256");

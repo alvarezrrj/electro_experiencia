@@ -7,8 +7,8 @@ exports.CustomError = CustomError;
 class SD {
     static ROLES = {
         ADMIN: 'admin',
-        CLIENT: 'client',
-        EMPLOYEE: 'employee',
+        CLIENT: 'cliente',
+        EMPLOYEE: 'empleado',
     };
 }
 exports.SD = SD;
