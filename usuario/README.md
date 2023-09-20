@@ -57,6 +57,7 @@ Error       | [`Error`](#error)
 
 |Endpoint: `/rol/:rolId?`||
 ---|---|
+Ej.       | /rol/1
 Method    | GET                   
 Parametros| rolId: `int` (opcional)
 Returns   | [`Rol[]`](#rol)
@@ -88,6 +89,8 @@ Error      | [`Error`](#error)
 
 ### Crear usuario
 
+Crear cualquier tipo de usuario, se le debe asignar un rol
+
 |Endpoint: `/usuario`||
 ---|---|
 Method     | POST
@@ -99,6 +102,8 @@ Error      | [`Error`](#error)
 
 ### Crear cliente
 
+Crear un usuario con rol `cliente`
+
 |Endpoint: `/usuario/clientes`||
 ---|---|
 Method     | POST
@@ -108,7 +113,9 @@ Error      | [`Error`](#error)
 
 ### Crear empleado
 
-|Endpoint: `/usuario/empleado`||
+Crear un usuario con rol `empleado`
+
+|Endpoint: `/usuario/empleados`||
 ---|---|
 Method     | POST
 Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
@@ -116,8 +123,10 @@ Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
 Error      | [`Error`](#error)
 
 ### Ver usuarios por dni
+
 |Endpoint: `/usuario/:dni`||
 ---|---|
+Ej.        | /usuario/33333333
 Method     | GET
 Parametros | dni: `int` (opcional)
 Returns    | [`Usuario[]`](#usuario)
@@ -162,6 +171,7 @@ Error      | [`Error`](#error)
 
 |Endpoint: `/usuario/:dni`||
 ---|---|
+Ej.        | /usuario/33333333
 Method     | DELETE
 Parametros | dni: `int`
 Returns    | OK 200 si el usuario se elimina sin problemas
@@ -197,8 +207,10 @@ Error     | [`Error`](#error)
 **Nota**: omitir parametro reparacionId para ver todas las reparaciones
 
 ### Buscar reparación
+
 |Endpoint: `/reparacion/search?q=search_string`||
 ---|---|
+Ej.       | /reparacion/search?q=cambio de motor
 Method    | GET                   
 Parametros| q: `string` (palabras clave a buscar en el nombre y descripción de la reparación)
 Returns   | [`ReparacionNomenclada`](#reparacion)
@@ -209,6 +221,7 @@ Error     | [`Error`](#error)
 
 |Endpoint: `/reparacion/:reparacionId`||
 ---|---|
+Ej.        | /reparacion/1
 Method     | DELETE
 Parametros | reparacionId: `int`
 Returns    | OK 200 si la reparación se elimina sin problemas
@@ -228,6 +241,7 @@ Error      | [`Error`](#error)
 
 |Endpoint: `/recepcion/:recepcionId?`||
 ---|---|
+Ej.       | /recepcion/1
 Method    | GET                   
 Parametros| recepcionId: `int` (opcional)
 Returns   | [`Recepcion[]`](#recepcion)
@@ -247,6 +261,7 @@ Error      | [`Error`](#error)
 ### Eliminar recepción
 |Endpoint: `/recepcion/:recepcionId`||
 ---|---|
+Ej.        | /recepcion/1
 Method     | DELETE
 Parametros | recepcionId: `int`
 Returns    | OK 200 si la recepción se elimina sin problemas
