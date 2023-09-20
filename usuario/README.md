@@ -284,7 +284,7 @@ Error      | [`Error`](#error)
 ```typescript
 {
 //  nombre       tipo       tamaño
-    id:          int        (11) 
+    id:          int        (11)            // DNI
     first_name:  string     (191 chars max)
     last_name:   string     (191 chars max)
     email:       string     (191 chars max)
