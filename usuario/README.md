@@ -292,7 +292,7 @@ Error      | [`Error`](#error)
     password:       string     
     gender:         string     (191 chars max)
     username:       string     (191 chars max)
-    cuit:           string?    (32 chars max)  // Opcional
+    cuit:           string     (32 chars max) 
     condicion_iva:  string     (191 chars max) // Default: "Consumidor final"
     rol:            int        (11)
 }
@@ -308,7 +308,7 @@ Error      | [`Error`](#error)
     email:          string     (191 chars max)
     gender:         string     (191 chars max)
     username:       string     (191 chars max)
-    cuit:           string?    (32 chars max)  // Opcional
+    cuit:           string     (32 chars max) 
     condicion_iva:  string     (191 chars max)
     createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
     updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
@@ -326,7 +326,7 @@ Error      | [`Error`](#error)
     email:          string     (191 chars max)
     gender:         string     (191 chars max)
     username:       string     (191 chars max)
-    cuit:           string?    (32 chars max)  // Opcional
+    cuit:           string     (32 chars max) 
     condicion_iva:  string     (191 chars max)
     rol:            int        (11)
     createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
