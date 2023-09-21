@@ -417,12 +417,13 @@ Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Lueg
 
 ```bash
 $ npm install
+$ npx tsc
 $ npx prisma migrate deploy
 $ npx prisma generate
 $ npm run seed
 $ npm run prod
 ```
 
-Para instalar dependencias, correr migraciones, generar el cliente de Prisma, poblar la base de datos con roles y usuario administrador e iniciar el servidor.
+Para instalar dependencias, compilar TypeScript, correr migraciones, generar el cliente de Prisma, poblar la base de datos con roles y usuario administrador e iniciar el servidor.
 
 Empujar a la rama `master` dispara un despliegue en Render.
