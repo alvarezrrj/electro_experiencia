@@ -275,56 +275,62 @@ Error      | [`Error`](#error)
 //  nombre       tipo       tamaño
     id_rol:      int        (11)
     descripcion: string     (191 chars max)
-    createdAt:   dateTime
-    updatedAt:   dateTime
+    createdAt:   dateTime                      // YYYY-MM-DD HH:MM:SS
+    updatedAt:   dateTime                      // YYYY-MM-DD HH:MM:SS
 }
 ```
 
 ### CamposDeUsuario 
 ```typescript
 {
-//  nombre       tipo       tamaño
-    id:          int        (11)            // DNI
-    first_name:  string     (191 chars max)
-    last_name:   string     (191 chars max)
-    email:       string     (191 chars max)
+//  nombre          tipo       tamaño
+    id:             int        (11)            // DNI
+    first_name:     string     (191 chars max)
+    last_name:      string     (191 chars max)
+    email:          string     (191 chars max)
     // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
-    password:    string     
-    gender:      string     (191 chars max)
-    username:    string     (191 chars max)
-    rol:         int        (11)
+    password:       string     
+    gender:         string     (191 chars max)
+    username:       string     (191 chars max)
+    cuit:           string?    (32 chars max)  // Opcional
+    condicion_iva:  string     (191 chars max) // Default: "Consumidor final"
+    rol:            int        (11)
 }
 ```
 
 ### Usuario
 ```typescript
 {
-//  nombre       tipo       tamaño
-    id:          int        (11) 
-    first_name:  string     (191 chars max)
-    last_name:   string     (191 chars max)
-    email:       string     (191 chars max)
-    gender:      string     (191 chars max)
-    username:    string     (191 chars max)
-    createdAt:   dateTime
-    updatedAt:   dateTime
-    Rol:         Rol    
+//  nombre          tipo       tamaño
+    id:             int        (11) 
+    first_name:     string     (191 chars max)
+    last_name:      string     (191 chars max)
+    email:          string     (191 chars max)
+    gender:         string     (191 chars max)
+    username:       string     (191 chars max)
+    cuit:           string?    (32 chars max)  // Opcional
+    condicion_iva:  string     (191 chars max)
+    createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
+    updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
+    Rol:            Rol    
 }
 ```
 
 ### UsuarioCreado
 ```typescript
 {
-//  nombre       tipo       tamaño
-    id:          int        (11) 
-    first_name:  string     (191 chars max)
-    last_name:   string     (191 chars max)
-    email:       string     (191 chars max)
-    gender:      string     (191 chars max)
-    username:    string     (191 chars max)
-    rol:         int        (11)
-    createdAt:   dateTime
-    updatedAt:   dateTime
+//  nombre          tipo       tamaño
+    id:             int        (11) 
+    first_name:     string     (191 chars max)
+    last_name:      string     (191 chars max)
+    email:          string     (191 chars max)
+    gender:         string     (191 chars max)
+    username:       string     (191 chars max)
+    cuit:           string?    (32 chars max)  // Opcional
+    condicion_iva:  string     (191 chars max)
+    rol:            int        (11)
+    createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
+    updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
 }
 ```
 
@@ -344,8 +350,8 @@ Error      | [`Error`](#error)
     id           int        (11)
     name         string     (191)
     descripcion  string     (65,535)
-    createdAt    dateTime
-    updatedAt    dateTime
+    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS
+    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS
 }
 ```
 
@@ -376,8 +382,8 @@ Error      | [`Error`](#error)
     descripcion  string     (65,535)
     employee_id  int        (11)
     Employee     Usuario     
-    createdAt    dateTime    
-    updatedAt    dateTime    
+    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
+    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
 }
 ```
 
@@ -393,8 +399,8 @@ Error      | [`Error`](#error)
     equipo       string     (191)
     descripcion  string     (65,535)
     employee_id  int        (11)
-    createdAt    dateTime    
-    updatedAt    dateTime    
+    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
+    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
 }
 ```
 

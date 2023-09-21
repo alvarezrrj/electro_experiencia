@@ -19,6 +19,8 @@ model Usuario {
   password        String      @db.VarChar(64) // 256 bits in hex
   gender          String
   username        String      @unique
+  cuit            String      @unique @db.VarChar(32)
+  condicion_iva   String      @default("Consumidor final")
   rol             Int     
   Rol             Rol         @relation(fields: [rol], references: [id_rol])
   Recepciones     Recepcion[]

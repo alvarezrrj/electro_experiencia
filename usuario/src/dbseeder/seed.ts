@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { SD } from "../interfaces/interfaces";
+import { createHash } from "node:crypto";
 
 export const prisma = new PrismaClient();
 
@@ -42,6 +43,12 @@ async function seed() {
     });
 
     if (!adminExists) {
+        // Hash password
+        let hash = createHash("sha256");
+        hash.update('admin');
+        let password = hash.digest("hex");
+
+        // Create admin
         await prisma.usuario.create({
             data: {
                 id: 1,
@@ -49,8 +56,10 @@ async function seed() {
                 last_name: 'admin',
                 username: 'admin',
                 email: 'admin@admin.com',
-                password: 'admin',
+                password,
                 gender: 'admin',
+                cuit: 'admin',
+                condicion_iva: 'admin',
                 rol: adminRol.id_rol
             }
         });
