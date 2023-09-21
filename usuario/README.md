@@ -44,7 +44,7 @@
 
 ### Crear rol
 
-|Endpoint: `/rol`||
+|Endpoint:| `/rol`|
 ---|---|
 Method      | POST
 Body (json) | `{ descripcion: string }`
@@ -55,7 +55,7 @@ Error       | [`Error`](#error)
 
 ### Ver roles
 
-|Endpoint: `/rol/:rolId?`||
+|Endpoint:| `/rol/:rolId?`|
 ---|---|
 Ej.       | /rol/1
 Method    | GET                   
@@ -68,7 +68,7 @@ Error     | [`Error`](#error)
 
 ### Editar un rol
 
-|Endpoint: `/rol/:rolId`||
+|Endpoint:| `/rol/:rolId`|
 ---|---|
 Method     | POST
 Parametros | rolId: `int`
@@ -79,7 +79,7 @@ Error      | [`Error`](#error)
 
 ### Eliminar un rol
 
-|Endpoint: `/rol/:rolId`||
+|Endpoint:| `/rol/:rolId`|
 ---|---|
 Method     | DELETE
 Parametros | rolId: `int`
@@ -91,7 +91,7 @@ Error      | [`Error`](#error)
 
 Crear cualquier tipo de usuario, se le debe asignar un rol
 
-|Endpoint: `/usuario`||
+|Endpoint:| `/usuario`|
 ---|---|
 Method     | POST
 Body (json)| [`CamposDeUsuario`](#camposdeusuario)
@@ -104,7 +104,7 @@ Error      | [`Error`](#error)
 
 Crear un usuario con rol `cliente`
 
-|Endpoint: `/usuario/clientes`||
+|Endpoint:| `/usuario/clientes`|
 ---|---|
 Method     | POST
 Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
@@ -115,7 +115,7 @@ Error      | [`Error`](#error)
 
 Crear un usuario con rol `empleado`
 
-|Endpoint: `/usuario/empleados`||
+|Endpoint:| `/usuario/empleados`|
 ---|---|
 Method     | POST
 Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
@@ -124,7 +124,7 @@ Error      | [`Error`](#error)
 
 ### Ver usuarios por dni
 
-|Endpoint: `/usuario/:dni`||
+|Endpoint:| `/usuario/:dni`|
 ---|---|
 Ej.        | /usuario/33333333
 Method     | GET
@@ -135,7 +135,7 @@ Error      | [`Error`](#error)
 **Nota**: omitir parametro dni para ver todos los usuarios
 
 ### Ver usuarios por rol
-|Endpoint: `/rol/:rolId/usuarios`||
+|Endpoint:| `/rol/:rolId/usuarios`|
 ---|---|
 Method     | GET
 Parametros | rolId: `int`
@@ -144,7 +144,7 @@ Error      | [`Error`](#error)
 
 ### Ver clientes
 
-|Endpoint: `/usuario/clientes`||
+|Endpoint:| `/usuario/clientes`|
 ---|---|
 Method     | GET
 Returns    | [`Usuario[]`](#usuario)
@@ -152,7 +152,7 @@ Error      | [`Error`](#error)
 
 ### Ver empleados
 
-|Endpoint: `/usuario/empleados`||
+|Endpoint:| `/usuario/empleados`|
 ---|---|
 Method     | GET
 Returns    | [`Usuario[]`](#usuario)
@@ -160,7 +160,7 @@ Error      | [`Error`](#error)
 
 ### Editar un usuario
 
-|Endpoint: `/usuario`||
+|Endpoint:| `/usuario`|
 ---|---|
 Method     | PUT
 Body (json)| [`CamposDeUsuario`](#camposdeusuario)
@@ -169,7 +169,7 @@ Error      | [`Error`](#error)
 
 ### Eliminar un usuario
 
-|Endpoint: `/usuario/:dni`||
+|Endpoint:| `/usuario/:dni`|
 ---|---|
 Ej.        | /usuario/33333333
 Method     | DELETE
@@ -178,7 +178,7 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 Error      | [`Error`](#error)
 
 ### Crear reparación
-|Endpoint: `/reparacion`||
+|Endpoint:| `/reparacion`|
 ---|---|
 Method     | POST
 Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
@@ -187,7 +187,7 @@ Error      | [`Error`](#error)
 
 ### Editar reparación
 
-|Endpoint: `/reparacion/:reparacionId`||
+|Endpoint:| `/reparacion/:reparacionId`|
 ---|---|
 Method     | PUT
 Parametros | reparacionId: `int`
@@ -197,7 +197,7 @@ Error      | [`Error`](#error)
 
 ### Ver reparaciones
 
-|Endpoint: `/reparacion/:reparacionId?`||
+|Endpoint:| `/reparacion/:reparacionId?`|
 ---|---|
 Method    | GET                   
 Parametros| reparacionId: `int` (opcional)
@@ -208,7 +208,7 @@ Error     | [`Error`](#error)
 
 ### Buscar reparación
 
-|Endpoint: `/reparacion/search?q=search_string`||
+|Endpoint:| `/reparacion/search?q=search_string`|
 ---|---|
 Ej.       | /reparacion/search?q=cambio de motor
 Method    | GET                   
@@ -219,7 +219,7 @@ Error     | [`Error`](#error)
 
 ### Eliminar reparación
 
-|Endpoint: `/reparacion/:reparacionId`||
+|Endpoint:| `/reparacion/:reparacionId`|
 ---|---|
 Ej.        | /reparacion/1
 Method     | DELETE
@@ -228,7 +228,7 @@ Returns    | OK 200 si la reparación se elimina sin problemas
 Error      | [`Error`](#error)
 
 ### Crear recepción
-|Endpoint: `/recepcion`||
+|Endpoint:| `/recepcion`|
 ---|---|
 Method     | POST
 Body (json)| [`CamposDeRecepcion`](#camposderecepcion)
@@ -239,7 +239,7 @@ Error      | [`Error`](#error)
 
 ### Ver recepciones
 
-|Endpoint: `/recepcion/:recepcionId?`||
+|Endpoint:| `/recepcion/:recepcionId?`|
 ---|---|
 Ej.       | /recepcion/1
 Method    | GET                   
@@ -250,7 +250,7 @@ Error     | [`Error`](#error)
 **Nota**: omitir parametro recepcionId para ver todas las recepciones
 
 ### Editar recepción
-|Endpoint: `/recepcion/:recepcionId`||
+|Endpoint:| `/recepcion/:recepcionId`|
 ---|---|
 Method     | PUT
 Parametros | recepcionId: `int`
@@ -259,7 +259,7 @@ Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción editada)
 Error      | [`Error`](#error)
 
 ### Eliminar recepción
-|Endpoint: `/recepcion/:recepcionId`||
+|Endpoint:| `/recepcion/:recepcionId`|
 ---|---|
 Ej.        | /recepcion/1
 Method     | DELETE
