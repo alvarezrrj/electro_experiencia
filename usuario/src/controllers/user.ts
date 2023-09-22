@@ -2,7 +2,7 @@ import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
 import { CustomError, SD, UserRequest } from "../interfaces/interfaces";
 import { Usuario } from "@prisma/client";
-const { createHash } = require('node:crypto');
+import { Auth } from "./auth";
 
 export class User {
   static index: Handler = async (req: UserRequest, res, next) => {
@@ -47,10 +47,7 @@ export class User {
   static create: Handler = async (req, res, next) => {
     let data: Omit<Usuario, 'createdAt' | 'updatedAt'>  = req.body;
 
-    // Hash password
-    let hash = createHash("sha256");
-    hash.update(data.password);
-    data.password = hash.digest("hex");
+    data.password = Auth.hashPassword(data.password);
 
     try {
       let user = await prisma.usuario.create({ data });

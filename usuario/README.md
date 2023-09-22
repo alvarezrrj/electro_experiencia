@@ -44,7 +44,7 @@
 
 ### Crear rol
 
-|Endpoint:| `/rol`|
+|Endpoint:| `/rol`| {style="text-align: right"}
 ---|---|
 Method      | POST
 Body (json) | `{ descripcion: string }`
@@ -427,3 +427,17 @@ $ npm run prod
 Para instalar dependencias, compilar TypeScript, correr migraciones, generar el cliente de Prisma, poblar la base de datos con roles y usuario administrador e iniciar el servidor.
 
 Empujar a la rama `master` dispara un despliegue en Render.
+
+
+## Autor
+
+**[Rodrigo Alvarez](https://github.com/alvarezrrj)**
+
+<style>
+    th {
+        text-align: left;
+    }
+</style>
+
+
+Nota: para los casos en que el aparato vuelva en garantía, se le podría dar al cliente el ID de su presupuesto, donde está la data de fin de garantía y todo eso

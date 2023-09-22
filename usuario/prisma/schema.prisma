@@ -58,6 +58,7 @@ model Recepcion {
   email             String      @unique
   telefono          String      @db.VarChar(15)
   equipo            String
+  // TODO agregar tipo (tipo de equipo)
   descripcion       String      @db.Text      // 65,535
   employee_id       Int         
   Employee          Usuario     @relation(fields: [employee_id], references: [id])
