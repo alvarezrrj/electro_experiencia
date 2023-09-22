@@ -19,10 +19,10 @@ export class Auth {
     }
 
     static login: Handler = async (req, res, next) => {
-        let { username, password } = req.body;
+        let { email, password } = req.body;
         let user = await prisma.usuario.findFirst({
             where: {
-                username
+                email
             }
         });
         if (!user) return next(this.loginError);

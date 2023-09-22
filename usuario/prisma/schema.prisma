@@ -15,12 +15,13 @@ model Usuario {
   id              Int         @id             // DNI
   first_name      String
   last_name       String
+  telefono        String      @db.VarChar(15)
   email           String      @unique
-  password        String      @db.VarChar(64) // 256 bits in hex
-  gender          String
-  username        String      @unique
   cuit            String      @unique @db.VarChar(32)
   condicion_iva   String      @default("Consumidor final")
+  password        String      @db.VarChar(64) // 256 bits in hex
+  // gender          String
+  // username        String      @unique
   rol             Int     
   Rol             Rol         @relation(fields: [rol], references: [id_rol])
   Recepciones     Recepcion[]
