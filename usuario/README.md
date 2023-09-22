@@ -304,6 +304,7 @@ Error      | [`Error`](#error)
     first_name:     string     (191 chars max)
     last_name:      string     (191 chars max)
     email:          string     (191 chars max)
+    telefono:       string     (15 chars max)
     cuit:           string     (32 chars max) 
     condicion_iva:  string     (191 chars max)
     createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
@@ -317,11 +318,12 @@ Error      | [`Error`](#error)
 {
 //  nombre          tipo       tamaño
     id:             int        (11) 
-    first_name:     string     (191 chars max)
-    last_name:      string     (191 chars max)
-    email:          string     (191 chars max)
-    cuit:           string     (32 chars max) 
-    condicion_iva:  string     (191 chars max)
+    first_name:     string     (191)
+    last_name:      string     (191)
+    email:          string     (191)
+    telefono:       string     (15)
+    cuit:           string     (32) 
+    condicion_iva:  string     (191)
     rol:            int        (11)
     createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
     updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
@@ -334,6 +336,7 @@ Error      | [`Error`](#error)
 //  nombre       tipo       tamaño
     name         string     (191)
     descripcion  string     (65,535)
+    costo        int        (11)
 }
 ```
 
@@ -344,6 +347,7 @@ Error      | [`Error`](#error)
     id           int        (11)
     name         string     (191)
     descripcion  string     (65,535)
+    costo        int        (11)
     createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS
     updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS
 }

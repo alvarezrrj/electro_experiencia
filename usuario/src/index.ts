@@ -20,6 +20,7 @@ app.set('query parser', 'extended');
 
 export const prisma = new PrismaClient();
 
+// TODO change session's default store https://github.com/expressjs/session#compatible-session-stores
 // Initialize session
 app.use(session({
     resave: false, // don't save session if unmodified
