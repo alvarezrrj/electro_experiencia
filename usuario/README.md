@@ -191,7 +191,7 @@ Error      | [`Error`](#error)
 ---|---|
 Method     | PUT
 Parametros | reparacionId: `int`
-Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacion)
+Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
 Returns    | [`Reparación`](#reparacion) (la reparación editada)
 Error      | [`Error`](#error)
 
@@ -201,7 +201,7 @@ Error      | [`Error`](#error)
 ---|---|
 Method    | GET                   
 Parametros| reparacionId: `int` (opcional)
-Returns   | [`ReparacionNomenclada[]`](#reparacion)
+Returns   | [`ReparacionNomenclada[]`](#reparacionnomenclada)
 Error     | [`Error`](#error)
 
 **Nota**: omitir parametro reparacionId para ver todas las reparaciones

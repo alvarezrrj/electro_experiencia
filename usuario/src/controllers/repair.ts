@@ -35,18 +35,12 @@ export class Repair {
     }
   };
 
-  public static update: Handler = async (req: RepairRequest, res, next) => {
-    if (! req.repairs) {
-        let err = new CustomError('Not found');
-        err.name = "404";
-        return next(err);
-    }
-    let old: ReparacionNomenclada = req.repairs[0];
-    let data = req.body;
+  public static update: Handler = async (req, res, next) => {
+    let data: Omit<ReparacionNomenclada, 'createdAt' | 'updatedAt'>  = req.body;
     try {
       let repair = await prisma.reparacionNomenclada.update({
         where: {
-          id: old.id,
+          id: data.id,
         },
         data,
       });

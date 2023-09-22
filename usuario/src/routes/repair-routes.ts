@@ -32,7 +32,7 @@ router.get('/reparacion/:repairId', Repair.show);
 /**
  * Actualizar reparación
  */
-router.put('/reparacion/:repairId', Repair.update);
+router.put('/reparacion', Repair.update);
 
 /**
  * Eliminar reparacion
