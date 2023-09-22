@@ -4,6 +4,7 @@ exports.prisma = void 0;
 const express = require('express');
 const bodyParser = require('body-parser');
 const qs = require('qs');
+const session = require('express-session');
 const client_1 = require("@prisma/client");
 const rol_middleware_1 = require("./middleware/rol-middleware");
 const user_middleware_1 = require("./middleware/user-middleware");
@@ -18,6 +19,11 @@ const app = express();
 app.use(bodyParser.json());
 app.set('query parser', 'extended');
 exports.prisma = new client_1.PrismaClient();
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: 'shhhh, very secret'
+}));
 app.post('/rol', rol_middleware_1.requiresDescription, rol_1.Rol.create);
 app.param('rolId', rol_1.Rol.rolRequestHandler);
 app.get("/rol", rol_1.Rol.index);
