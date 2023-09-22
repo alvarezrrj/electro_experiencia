@@ -432,6 +432,3 @@ Empujar a la rama `master` dispara un despliegue en Render.
         text-align: left;
     }
 </style>
-
-
-Nota: para los casos en que el aparato vuelva en garantía, se le podría dar al cliente el ID de su presupuesto, donde está la data de fin de garantía y todo eso

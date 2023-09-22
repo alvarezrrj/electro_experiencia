@@ -52,10 +52,9 @@ async function seed() {
                 id: 1,
                 first_name: 'admin',
                 last_name: 'admin',
-                username: 'admin',
                 email: 'admin@admin.com',
                 password,
-                gender: 'admin',
+                telefono: 'admin',
                 cuit: 'admin',
                 condicion_iva: 'admin',
                 rol: adminRol.id_rol
