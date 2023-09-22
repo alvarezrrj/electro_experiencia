@@ -35,7 +35,7 @@
 #### Recepciones
 + [Crear recepción](#crear-recepción)
 + [Ver recepciones](#ver-recepciones)
-+ [Editar recepción](#editar-recepcion)
++ [Editar recepción](#editar-recepción)
 + [Eliminar recepción](#eliminar-recepción)
 
 #### Otros
@@ -182,17 +182,16 @@ Error      | [`Error`](#error)
 ---|---|
 Method     | POST
 Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
-Returns    | [`ReparacionNomenclada`](#reparacion) (la reparación creada)
+Returns    | [`ReparacionNomenclada`](#reparacionnomenclada) (la reparación creada)
 Error      | [`Error`](#error)
 
 ### Editar reparación
 
-|Endpoint:| `/reparacion/:reparacionId`|
+|Endpoint:| `/reparacion`|
 ---|---|
 Method     | PUT
-Parametros | reparacionId: `int`
-Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
-Returns    | [`Reparación`](#reparacion) (la reparación editada)
+Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada) `& { id: int }`
+Returns    | [`ReparaciónNomenclada`](#reparacionnomenclada) (la reparación editada)
 Error      | [`Error`](#error)
 
 ### Ver reparaciones
@@ -213,7 +212,7 @@ Error     | [`Error`](#error)
 Ej.       | /reparacion/search?q=cambio de motor
 Method    | GET                   
 Parametros| q: `string` (palabras clave a buscar en el nombre y descripción de la reparación)
-Returns   | [`ReparacionNomenclada`](#reparacion)
+Returns   | [`ReparacionNomenclada`](#reparacionnomenclada)
 Error     | [`Error`](#error)
 
 
