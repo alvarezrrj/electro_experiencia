@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { SD } from "../interfaces/interfaces";
 import { Auth } from "../controllers/auth";
+import { createHash } from "node:crypto";
 
 export const prisma = new PrismaClient();
 
@@ -44,8 +45,10 @@ async function seed() {
 
     if (!adminExists) {
         // Hash password
-        let password = Auth.hashPassword('admin')
-
+        let hash = createHash("sha256");
+        hash.update('admin');
+        let password = hash.digest("hex");
+        
         // Create admin
         await prisma.usuario.create({
             data: {
