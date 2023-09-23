@@ -44,7 +44,7 @@
 
 ### Crear rol
 
-|Endpoint:| `/rol`| {style="text-align: right"}
+|Endpoint:| `/rol`|
 ---|---|
 Method      | POST
 Body (json) | `{ descripcion: string }`
@@ -413,10 +413,10 @@ Error      | [`Error`](#error)
 
 ## Despliegue
 
-Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Luego correr
+Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Luego, desde el directorio `usuario` correr
 
 ```bash
-$ npm install
+$ npm install   
 $ npx tsc
 $ npx prisma migrate deploy
 $ npx prisma generate
