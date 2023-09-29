@@ -24,9 +24,6 @@ app.set('query parser', 'extended');
 
 export const prisma = new PrismaClient();
 
-
-
-// TODO change session's default store https://github.com/expressjs/session#compatible-session-stores
 // Initialize session
 app.use(session({
     resave: false,            // don't save session if unmodified
@@ -41,13 +38,11 @@ app.use(session({
 passport.use(localStrategy);
 passport.serializeUser(serializer);
 passport.deserializeUser(deserializer);
-// passport.deserializeUser(deserializeUser)
 
 // Deserialize user and populate req.user
 app.use(passport.session());
 
 app.use((req, res, next) => {console.log('USER: ', req.user); next();})
-
 
 // Assign routes
 app.use('/', userRouter);

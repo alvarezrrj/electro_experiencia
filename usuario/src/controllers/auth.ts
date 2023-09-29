@@ -19,8 +19,12 @@ export class Auth {
     }
 
     static login: Handler = async (req, res, next) => {
-        res.send();
-        next();
+        if (req.user) {
+            res.status(200).send();
+            next();
+        } else {
+            res.send('Usuario o contraseña incorrecto');
+        }
     }
 
     static logout: Handler = async (req, res, next) => {

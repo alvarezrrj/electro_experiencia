@@ -30,7 +30,8 @@ export const localStrategy: passport.Strategy = new LocalStrategy(
           },
         });
 
-        if (!user) return done(null, false);
+        //@ts-ignore
+        if (!user) return done(null, false, {message: 'Hola'});
 
         if (user.password !== Auth.hashPassword(password)) return done(null, false);
 
