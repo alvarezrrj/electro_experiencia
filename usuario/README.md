@@ -38,6 +38,10 @@
 + [Editar recepción](#editar-recepción)
 + [Eliminar recepción](#eliminar-recepción)
 
+#### Login
++ [Iniciar sesión](#iniciar-sesión)
++ [Cerrar sesión](#cerrar-sesión)
+
 #### Otros
 + [Interfaces](#interfaces)
 + [Despliegue](#despliegue)
@@ -47,7 +51,7 @@
 |Endpoint:| `/rol`|
 ---|---|
 Method      | POST
-Body (json) | `{ descripcion: string }`
+Body (`json`) | `{ descripcion: string }`
 Returns     | [`Rol`](#rol) (el rol creado)
 Error       | [`Error`](#error)
 
@@ -72,7 +76,7 @@ Error     | [`Error`](#error)
 ---|---|
 Method     | POST
 Parametros | rolId: `int`
-Body (json)| `{ descripcion: string }`
+Body (`json`)| `{ descripcion: string }`
 Returns    | [`Rol`](#rol) (el rol editado)
 Error      | [`Error`](#error)
 
@@ -94,7 +98,7 @@ Crear cualquier tipo de usuario, se le debe asignar un rol
 |Endpoint:| `/usuario`|
 ---|---|
 Method     | POST
-Body (json)| [`CamposDeUsuario`](#camposdeusuario)
+Body (`json`)| [`CamposDeUsuario`](#camposdeusuario)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
 Error      | [`Error`](#error)
 
@@ -107,7 +111,7 @@ Crear un usuario con rol `cliente`
 |Endpoint:| `/usuario/clientes`|
 ---|---|
 Method     | POST
-Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
+Body (`json`)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
 Error      | [`Error`](#error)
 
@@ -118,7 +122,7 @@ Crear un usuario con rol `empleado`
 |Endpoint:| `/usuario/empleados`|
 ---|---|
 Method     | POST
-Body (json)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
+Body (`json`)| `Omit`<[`CamposDeUsuario`](#camposdeusuario), `'rol'`> (`CamposDeUsuario` excluyendo el campo `rol`)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
 Error      | [`Error`](#error)
 
@@ -163,7 +167,7 @@ Error      | [`Error`](#error)
 |Endpoint:| `/usuario`|
 ---|---|
 Method     | PUT
-Body (json)| [`CamposDeUsuario`](#camposdeusuario)
+Body (`json`)| [`CamposDeUsuario`](#camposdeusuario)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario editado)
 Error      | [`Error`](#error)
 
@@ -181,7 +185,7 @@ Error      | [`Error`](#error)
 |Endpoint:| `/reparacion`|
 ---|---|
 Method     | POST
-Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
+Body (`json`)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada)
 Returns    | [`ReparacionNomenclada`](#reparacionnomenclada) (la reparación creada)
 Error      | [`Error`](#error)
 
@@ -190,7 +194,7 @@ Error      | [`Error`](#error)
 |Endpoint:| `/reparacion`|
 ---|---|
 Method     | PUT
-Body (json)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada) `& { id: int }`
+Body (`json`)| [`CamposDeReparacionNomenclada`](#camposdereparacionnomenclada) `& { id: int }`
 Returns    | [`ReparaciónNomenclada`](#reparacionnomenclada) (la reparación editada)
 Error      | [`Error`](#error)
 
@@ -230,7 +234,7 @@ Error      | [`Error`](#error)
 |Endpoint:| `/recepcion`|
 ---|---|
 Method     | POST
-Body (json)| [`CamposDeRecepcion`](#camposderecepcion)
+Body (`json`)| [`CamposDeRecepcion`](#camposderecepcion)
 Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción creada)
 Error      | [`Error`](#error)
 
@@ -253,17 +257,37 @@ Error     | [`Error`](#error)
 ---|---|
 Method     | PUT
 Parametros | recepcionId: `int`
-Body (json)| [`CamposDeRecepcion`](#camposderecepcion)
+Body (`json`)| [`CamposDeRecepcion`](#camposderecepcion)
 Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción editada)
 Error      | [`Error`](#error)
 
 ### Eliminar recepción
+
 |Endpoint:| `/recepcion/:recepcionId`|
 ---|---|
 Ej.        | /recepcion/1
 Method     | DELETE
 Parametros | recepcionId: `int`
 Returns    | OK 200 si la recepción se elimina sin problemas
+Error      | [`Error`](#error)
+
+### Iniciar sesión
+
+La sesión es mantenida a través de cookies. Pedidos siguientes a 
+
+|Endpoint:| `/login`|
+---|---|
+Method     | POST
+Body (`application/x-www-form-urlencoded`) | email=&lt;string&gt; password=&lt;string&gt;
+Returns    | OK 200 si el usuario existe y la contraseña es correcta.
+Error      | [`Error`](#error)
+
+### Cerrar sesión
+
+|Endpoint:| `/logout`|
+---|---|
+Method     | POST
+Returns    | OK 200 si la sesión se cierra sin problemas.
 Error      | [`Error`](#error)
 
 ## Interfaces
