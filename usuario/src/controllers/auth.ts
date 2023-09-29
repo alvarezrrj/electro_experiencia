@@ -19,24 +19,17 @@ export class Auth {
     }
 
     static login: Handler = async (req, res, next) => {
-        let { email, password } = req.body;
-        let user = await prisma.usuario.findFirst({
-            where: {
-                email
-            }
-        });
-        if (!user) return next(this.loginError);
-
-        if (user.password !== this.hashPassword(password)) return next(this.loginError);
-
-        req.session.user = user;
-        req.session
+        res.send();
         next();
     }
 
     static logout: Handler = async (req, res, next) => {
-        delete req.session.user;
-        next();
+        // delete req.session.user;
+        // next();
+        req.logout(err => {
+            if (err) return next(err);
+            res.status(200).send();
+        });
     }
 
     public static hashPassword(password: string) {
