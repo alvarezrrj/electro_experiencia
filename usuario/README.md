@@ -273,10 +273,11 @@ Error      | [`Error`](#error)
 
 ### Iniciar sesión
 
-La sesión es mantenida a través de cookies. Pedidos siguientes a 
+La sesión es mantenida a través de cookies.
 
 |Endpoint:| `/login`|
 ---|---|
+Ej         | `curl '/login?password=$ecreto&email=admin@example.com' -X POST`
 Method     | POST
 Body (`application/x-www-form-urlencoded`) | email=&lt;string&gt; password=&lt;string&gt;
 Returns    | OK 200 si el usuario existe y la contraseña es correcta.
