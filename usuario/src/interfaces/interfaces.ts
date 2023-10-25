@@ -1,5 +1,6 @@
 import { Recepcion, ReparacionNomenclada, Usuario } from "@prisma/client";
 import { Request } from "express";
+import { usedMaterials } from "../controllers/usedMaterials";
 
 export interface RoleRequest extends Request {
     roles?: {
@@ -17,6 +18,14 @@ export interface RepairRequest extends Request {
 export interface ReceptionRequest extends Request {
     receptions?: Recepcion[];
 }
+
+export interface usedMaterialsRequest extends Request {
+    usedMaterials?: usedMaterials[];
+}
+
+
+
+
 
 export class CustomError extends Error {}
 

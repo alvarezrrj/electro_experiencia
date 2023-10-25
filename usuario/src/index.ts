@@ -13,6 +13,7 @@ const userRouter = require('./routes/user-routes');
 const repairRouter = require('./routes/repair-routes');
 const receptionRouter = require('./routes/reception-routes');
 const authRouter = require('./routes/auth-routes');
+const usedMaterialRouter = require('./routes/usedMaterials-routes');
 
 // Load environment variables
 require('dotenv').config();
@@ -49,6 +50,7 @@ app.use('/', userRouter);
 app.use('/', repairRouter);
 app.use('/', receptionRouter);
 app.use('/', authRouter);
+app.use('/', usedMaterialRouter);
 
 /**
  * Error handling
