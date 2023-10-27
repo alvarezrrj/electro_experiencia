@@ -14,6 +14,8 @@ const repairRouter = require('./routes/repair-routes');
 const receptionRouter = require('./routes/reception-routes');
 const authRouter = require('./routes/auth-routes');
 const usedMaterialRouter = require('./routes/usedMaterials-routes');
+const materialsRouter = require('./routes/materials-routes');
+const presupuestosRouter = require('./routes/presupuestos-routes');
 
 // Load environment variables
 require('dotenv').config();
@@ -51,6 +53,8 @@ app.use('/', repairRouter);
 app.use('/', receptionRouter);
 app.use('/', authRouter);
 app.use('/', usedMaterialRouter);
+app.use('/', materialsRouter);
+app.use('/', presupuestosRouter);
 
 /**
  * Error handling

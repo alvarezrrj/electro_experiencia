@@ -1,5 +1,4 @@
-
-import { usedMaterials } from "../controllers/usedMaterials";
+import { Materiales } from "../controllers/materials";
 
 const express = require('express');
 
@@ -15,18 +14,14 @@ const router = express.Router();
 /**
  * Ver todas los materiales usados
  */
-router.get('/materialesUsados/reparacion/', usedMaterials.index)
-
-router.get('/materialesUsados/materiales/', usedMaterials.index)
+router.get('/materiales/', Materiales.index)
 
 //router.param('id', usedMaterials.receptionRequestHandler);
 
 /**
  * Ver recepción por material usado id
  */
-router.get('/materialesUsados/reparacion/Id', usedMaterials.show);
-
-router.get('/materialesUsados/materiales/Id', usedMaterials.show);
+router.get('/materiales/Id', Materiales.show);
 
 /**
  * Actualizar material usado

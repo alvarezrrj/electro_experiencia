@@ -1,45 +1,47 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
-import {
-  CustomError,
-  usedMaterialsRequest,
-  SD,
-} from "../interfaces/interfaces";
-import { Materiales_Usados } from "@prisma/client";
+import { CustomError, presupuestosRequest, SD } from "../interfaces/interfaces";
+import { presupuestos } from "@prisma/client";
 
-export class usedMaterials {
+export class Presupuestos {
   static index: Handler = async (req, res, next) => {
     try {
-      let matUs = await prisma.materiales_Usados.findMany({
+      let pres = await prisma.presupuestos.findMany({
         include: {
-          Reparacion: {
+          Recepcion: {
             select: {
               id: true,
-              name: true,
+              first_name: true,
+              last_name: true,
+              email: true,
+              telefono: true,
+              equipo: true,
+              tipo: true,
               descripcion: true,
-              costo: true,
-
               createdAt: true,
               updatedAt: true,
+              Employee:true,
             },
           },
 
-          Material: {
+          Usuario: {
             select: {
               id: true,
-              name: true,
-              costo: true,
-              descripcion: true,
-              stock: true,
-
+              first_name: true,
+              last_name: true,
+              email: true,
+              telefono: true,
+              cuit: true,
+              condicion_iva: true,
               createdAt: true,
               updatedAt: true,
+              Rol:true,
             },
           },
         },
       });
 
-      res.json(matUs);
+      res.json(pres);
     } catch (e) {
       next(e);
     } finally {
@@ -48,12 +50,12 @@ export class usedMaterials {
   };
 
   //////
-  static show: Handler = async (req: usedMaterialsRequest, res, next) => {
+  static show: Handler = async (req: presupuestosRequest, res, next) => {
     prisma.$disconnect();
 
-    if (!req.usedMaterials) return next(new Error());
+    if (!req.Presupuestos) return next(new Error());
 
-    res.json(req.usedMaterials);
+    res.json(req.Presupuestos);
   };
   /*
   static create: Handler = async (req, res, next) => {
@@ -62,7 +64,7 @@ export class usedMaterials {
     let reparacion = await prisma.usuario.findFirst({
         where: {
             id: data.reparacion_id
-        },
+        },0
         include: {
             Rol: true
         }
@@ -121,50 +123,55 @@ export class usedMaterials {
 */
 
   ///////////////////////
-  /*
-  public static UsedMaterialsRequestHandler: RequestParamHandler = async (
-    req: usedMaterialsRequest,
+
+  public static presupuestosRequestHandler: RequestParamHandler = async (
+    req: presupuestosRequest,
     res,
     next,
-    matUsed_id
+    presupuestos_id
   ) => {
-    let matUsed: Materiales_Usados;
-    let validated = parseInt(matUsed_id);
+    let pres: presupuestos | null;
+    let validated = parseInt(presupuestos_id);
     if (isNaN(validated)) {
-      let err = new CustomError("matUsedId debe ser int");
+      let err = new CustomError("presupuestosId debe ser int");
       err.name = "400";
       return next(err);
     }
 
     try {
-      matUsed = await prisma.materiales_Usados.findUnique({
+      pres = await prisma.presupuestos.findUnique({
         where: {
           id: validated,
         },
         include: {
-          Reparacion: {
+          Recepcion: {
             select: {
               id: true,
-              name: true,
+              first_name: true,
+              last_name: true,
+              email: true,
+              telefono: true,
+              equipo: true,
+              tipo: true,
               descripcion: true,
-              costo: true,
               createdAt: true,
               updatedAt: true,
-
-             
+              Employee:true,
             },
           },
 
-          Material: {
+          Usuario: {
             select: {
               id: true,
-              name: true,
-              costo: true,
-              descripcion: true,
-              stock: true,
-
+              first_name: true,
+              last_name: true,
+              email: true,
+              telefono: true,
+              cuit: true,
+              condicion_iva: true,
               createdAt: true,
               updatedAt: true,
+              Rol:true,
             },
           },
         },
@@ -172,15 +179,13 @@ export class usedMaterials {
     } catch (e) {
       return next(e);
     }
-    if (!matUsed_id) {
-      let err = new CustomError("reparacion no encontrada");
+    if (!pres) {
+      let err = new CustomError("Presupuesto no encontrado");
       err.name = "404";
       return next(err);
     }
-    req.usedMaterials = [matUsed];
+    req.Presupuestos = [pres];
 
     next();
   };
-
-  */
 }

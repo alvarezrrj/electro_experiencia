@@ -2,27 +2,26 @@ import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
 import { CustomError, ReceptionRequest, SD } from "../interfaces/interfaces";
 import { Recepcion } from "@prisma/client";
-import { User } from "./user";
 
 export class Reception {
   static index: Handler = async (req, res, next) => {
     try {
       let receptions = await prisma.recepcion.findMany({
         include: {
-            Employee: {
-                select: {
-                    id: true,
-                    first_name: true,
-                    last_name: true,
-                    email: true,
-                    cuit: true,
-                    condicion_iva: true,
-                    createdAt: true,
-                    updatedAt: true,
-                    Rol: true
-                }
+          Employee: {
+            select: {
+              id: true,
+              first_name: true,
+              last_name: true,
+              email: true,
+              cuit: true,
+              condicion_iva: true,
+              createdAt: true,
+              updatedAt: true,
+              Rol: true,
             },
-        }
+          },
+        },
       });
 
       res.json(receptions);
@@ -40,20 +39,20 @@ export class Reception {
   };
 
   static create: Handler = async (req, res, next) => {
-    let data: Omit<Recepcion, 'id' | 'createdAt' | 'updatedAt'> = req.body;
+    let data: Omit<Recepcion, "id" | "createdAt" | "updatedAt"> = req.body;
 
     let employee = await prisma.usuario.findFirst({
-        where: {
-            id: data.employee_id
-        },
-        include: {
-            Rol: true
-        }
-    })
+      where: {
+        id: data.employee_id,
+      },
+      include: {
+        Rol: true,
+      },
+    });
     if (employee?.Rol.descripcion !== SD.ROLES.EMPLOYEE) {
-        let err = new CustomError("Ese usuario no es un empleado");
-        err.name = "400";
-        return next(err);
+      let err = new CustomError("Ese usuario no es un empleado");
+      err.name = "400";
+      return next(err);
     }
 
     try {
@@ -62,13 +61,13 @@ export class Reception {
     } catch (e) {
       next(e);
     }
-  }
+  };
 
   public static update: Handler = async (req: ReceptionRequest, res, next) => {
-    if (! req.receptions) return;
+    if (!req.receptions) return;
 
     let old: Recepcion = req.receptions[0];
-    let data: Omit<Recepcion, 'createdAt' | 'updatedAt'> = req.body;
+    let data: Omit<Recepcion, "createdAt" | "updatedAt"> = req.body;
     try {
       let reception = await prisma.recepcion.update({
         where: {
@@ -82,7 +81,7 @@ export class Reception {
     } finally {
       prisma.$disconnect();
     }
-  }
+  };
 
   public static delete: Handler = async (req: ReceptionRequest, res, next) => {
     if (!req.receptions) return;
@@ -98,7 +97,7 @@ export class Reception {
     } finally {
       prisma.$disconnect();
     }
-  }
+  };
 
   public static receptionRequestHandler: RequestParamHandler = async (
     req: ReceptionRequest,
@@ -119,20 +118,20 @@ export class Reception {
           id: validated,
         },
         include: {
-            Employee: {
-                select: {
-                    id: true,
-                    first_name: true,
-                    last_name: true,
-                    email: true,
-                    cuit: true,
-                    condicion_iva: true,
-                    createdAt: true,
-                    updatedAt: true,
-                    Rol: true,
-                }
+          Employee: {
+            select: {
+              id: true,
+              first_name: true,
+              last_name: true,
+              email: true,
+              cuit: true,
+              condicion_iva: true,
+              createdAt: true,
+              updatedAt: true,
+              Rol: true,
             },
-        }
+          },
+        },
       });
     } catch (e) {
       return next(e);

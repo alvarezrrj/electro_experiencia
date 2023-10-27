@@ -1,6 +1,8 @@
-import { Recepcion, ReparacionNomenclada, Usuario } from "@prisma/client";
+import { Recepcion, ReparacionNomenclada, Usuario, Materiales_Usados,Materials, presupuestos } from "@prisma/client";
 import { Request } from "express";
-import { usedMaterials } from "../controllers/usedMaterials";
+
+
+
 
 export interface RoleRequest extends Request {
     roles?: {
@@ -20,8 +22,19 @@ export interface ReceptionRequest extends Request {
 }
 
 export interface usedMaterialsRequest extends Request {
-    usedMaterials?: usedMaterials[];
+    usedMaterials?: Materiales_Usados[];
 }
+
+
+export interface MaterialsRequest extends Request {
+    Materials?: Materials[];
+}
+
+export interface presupuestosRequest extends Request {
+    Presupuestos?: presupuestos[];
+}
+
+
 
 
 

@@ -1,37 +1,20 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
-import {
-  CustomError,
-  usedMaterialsRequest,
-  SD,
-} from "../interfaces/interfaces";
-import { Materiales_Usados } from "@prisma/client";
+import { CustomError, MaterialsRequest, SD } from "../interfaces/interfaces";
+import { Materials } from "@prisma/client";
 
-export class usedMaterials {
+export class Materiales {
   static index: Handler = async (req, res, next) => {
     try {
-      let matUs = await prisma.materiales_Usados.findMany({
+      let mat = await prisma.materials.findMany({
         include: {
-          Reparacion: {
+          Proveedor: {
             select: {
               id: true,
               name: true,
-              descripcion: true,
-              costo: true,
-
-              createdAt: true,
-              updatedAt: true,
-            },
-          },
-
-          Material: {
-            select: {
-              id: true,
-              name: true,
-              costo: true,
-              descripcion: true,
-              stock: true,
-
+              telefono: true,
+              email: true,
+              detalles: true,
               createdAt: true,
               updatedAt: true,
             },
@@ -39,7 +22,7 @@ export class usedMaterials {
         },
       });
 
-      res.json(matUs);
+      res.json(mat);
     } catch (e) {
       next(e);
     } finally {
@@ -48,12 +31,12 @@ export class usedMaterials {
   };
 
   //////
-  static show: Handler = async (req: usedMaterialsRequest, res, next) => {
+  static show: Handler = async (req: MaterialsRequest, res, next) => {
     prisma.$disconnect();
 
-    if (!req.usedMaterials) return next(new Error());
+    if (!req.Materials) return next(new Error());
 
-    res.json(req.usedMaterials);
+    res.json(req.Materials);
   };
   /*
   static create: Handler = async (req, res, next) => {
@@ -62,7 +45,7 @@ export class usedMaterials {
     let reparacion = await prisma.usuario.findFirst({
         where: {
             id: data.reparacion_id
-        },
+        },0
         include: {
             Rol: true
         }
@@ -121,66 +104,58 @@ export class usedMaterials {
 */
 
   ///////////////////////
+
   /*
-  public static UsedMaterialsRequestHandler: RequestParamHandler = async (
-    req: usedMaterialsRequest,
+  public static MaterialsRequestHandler: RequestParamHandler = async (
+    req: MaterialsRequest,
     res,
     next,
-    matUsed_id
+    materials_id
   ) => {
-    let matUsed: Materiales_Usados;
-    let validated = parseInt(matUsed_id);
+    let mat: Materials | null;
+    let validated = parseInt(materials_id);
     if (isNaN(validated)) {
-      let err = new CustomError("matUsedId debe ser int");
+      let err = new CustomError("materials_Id debe ser int");
       err.name = "400";
       return next(err);
     }
 
     try {
-      matUsed = await prisma.materiales_Usados.findUnique({
+      mat = await prisma.materials.findUnique({
         where: {
           id: validated,
         },
         include: {
-          Reparacion: {
+
+        
+          Proveedor: {
             select: {
               id: true,
               name: true,
-              descripcion: true,
-              costo: true,
-              createdAt: true,
-              updatedAt: true,
-
-             
-            },
-          },
-
-          Material: {
-            select: {
-              id: true,
-              name: true,
-              costo: true,
-              descripcion: true,
-              stock: true,
+              telefono: true,
+              email: true,
+              detalles: true,
 
               createdAt: true,
               updatedAt: true,
             },
           },
+          
         },
+    
       });
     } catch (e) {
       return next(e);
     }
-    if (!matUsed_id) {
-      let err = new CustomError("reparacion no encontrada");
+    if (!materials_id) {
+      let err = new CustomError("Material no encontrado");
       err.name = "404";
       return next(err);
     }
-    req.usedMaterials = [matUsed];
+    req.Materials = [mat];
 
     next();
   };
 
-  */
+*/
 }
