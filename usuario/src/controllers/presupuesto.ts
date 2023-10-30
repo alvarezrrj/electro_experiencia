@@ -1,12 +1,13 @@
 import { Handler, RequestParamHandler } from "express";
 import { prisma } from "..";
 import { CustomError, presupuestosRequest, SD } from "../interfaces/interfaces";
-import { presupuestos } from "@prisma/client";
+import { Presupuesto } from "@prisma/client";
+import { User } from "./user";
 
 export class Presupuestos {
   static index: Handler = async (req, res, next) => {
     try {
-      let pres = await prisma.presupuestos.findMany({
+      let pres = await prisma.presupuesto.findMany({
         include: {
           Recepcion: {
             select: {
@@ -57,47 +58,50 @@ export class Presupuestos {
 
     res.json(req.Presupuestos);
   };
-  /*
+  
   static create: Handler = async (req, res, next) => {
-    let data: Omit<Materiales_Usados, 'id' | 'createdAt' | 'updatedAt'> = req.body;
 
-    let reparacion = await prisma.usuario.findFirst({
-        where: {
-            id: data.reparacion_id
-        },0
-        include: {
-            Rol: true
-        }
-    })
 
-    
-    if (reparacion?.Rol.descripcion !== SD.ROLES.EMPLOYEE) {
-        let err = new CustomError("Ese usuario no es un empleado");
-        err.name = "400";
-        return next(err);
+    let data: Omit<Presupuesto, 'id' | 'createdAt' | 'updatedAt'> = req.body;
+
+
+    let cliente = await prisma.usuario.findFirst({
+      where: {
+        id: data.client_id,
+      },
+      include: {
+        Rol: true,
+      },
+    });
+
+
+    if (cliente?.Rol.descripcion !== SD.ROLES.Usuario) {
+      let err = new CustomError("Ese usuario no es un cliente");
+      err.name = "400";
+      return next(err);
     }
 
     try {
-      let matusados = await prisma.materiales_Usados.create({ data });
-      res.json(matusados);
+      let pres = await prisma.presupuesto.create({ data });
+      res.json(pres);
     } catch (e) {
       next(e);
     }
   }
 
-  public static update: Handler = async (req: usedMaterialsRequest, res, next) => {
-    if (! req.receptions) return;
+  public static update: Handler = async (req: presupuestosRequest, res, next) => {
+    if (! req.Presupuestos) return;
 
-    let old: Recepcion = req.receptions[0];
-    let data: Omit<Recepcion, 'createdAt' | 'updatedAt'> = req.body;
+    let old: Presupuesto = req.Presupuestos[0];
+    let data: Omit<Presupuesto, 'createdAt' | 'updatedAt'> = req.body;
     try {
-      let reception = await prisma.recepcion.update({
+      let pres = await prisma.presupuesto.update({
         where: {
           id: old.id,
         },
         data,
       });
-      res.json(reception);
+      res.json(pres);
     } catch (e) {
       next(e);
     } finally {
@@ -105,12 +109,12 @@ export class Presupuestos {
     }
   }
 
-  public static delete: Handler = async (req: ReceptionRequest, res, next) => {
-    if (!req.receptions) return;
+  public static delete: Handler = async (req: presupuestosRequest, res, next) => {
+    if (!req.Presupuestos) return;
     try {
-      await prisma.recepcion.delete({
+      await prisma.presupuesto.delete({
         where: {
-          id: req.receptions[0].id,
+          id: req.Presupuestos[0].id,
         },
       });
       res.send();
@@ -120,7 +124,7 @@ export class Presupuestos {
       prisma.$disconnect();
     }
   }
-*/
+
 
   ///////////////////////
 
@@ -130,7 +134,7 @@ export class Presupuestos {
     next,
     presupuestos_id
   ) => {
-    let pres: presupuestos | null;
+    let pres: Presupuesto | null;
     let validated = parseInt(presupuestos_id);
     if (isNaN(validated)) {
       let err = new CustomError("presupuestosId debe ser int");
@@ -139,7 +143,7 @@ export class Presupuestos {
     }
 
     try {
-      pres = await prisma.presupuestos.findUnique({
+      pres = await prisma.presupuesto.findUnique({
         where: {
           id: validated,
         },

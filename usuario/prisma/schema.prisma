@@ -11,22 +11,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Materials {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  descripcion       String
-  stock             Int
-  costo             Float
-  proveedor_id      Int
-  Proveedor         Proveedores         @relation(fields: [proveedor_id], references: [id])
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  Materiales_Usados Materiales_Usados[]
+model Material {
+  id           Int       @id @default(autoincrement())
+  name         String
+  descripcion  String
+  stock        Int
+  costo        Float
+  proveedor_id Int
+  Proveedor    Proveedor @relation(fields: [proveedor_id], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@map("materiales")
 }
 
-model presupuestos {
+model Presupuesto {
   id           Int       @id @default(autoincrement())
   descripcion  String
   recepcion_id Int
@@ -39,37 +38,36 @@ model presupuestos {
   updatedAt    DateTime  @updatedAt
 }
 
-model Proveedores {
-  id        Int      @id @default(autoincrement())
+model Proveedor {
+  id        Int        @id @default(autoincrement())
   name      String
   telefono  Int
-  email     String   @unique
+  email     String     @unique
   detalles  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  Materials Materials[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Materials Material[]
 
   @@map("proveedores")
 }
 
 model Usuario {
-  id            Int            @id // DNI
+  id            Int           @id // DNI
   first_name    String
   last_name     String
-  telefono      String         @db.VarChar(15)
-  email         String         @unique
-  cuit          String         @unique @db.VarChar(32)
-  condicion_iva String         @default("Consumidor final")
-  password      String         @db.VarChar(64) // 256 bits in hex
+  telefono      String        @db.VarChar(15)
+  email         String        @unique
+  cuit          String        @unique @db.VarChar(32)
+  condicion_iva String        @default("Consumidor final")
+  password      String        @db.VarChar(64) // 256 bits in hex
   // gender          String
   // username        String      @unique
   rol           Int
-  Rol           Rol            @relation(fields: [rol], references: [id_rol])
+  Rol           Rol           @relation(fields: [rol], references: [id_rol])
   Recepciones   Recepcion[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  presupuestos  presupuestos[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  presupuestos  Presupuesto[]
 
   @@map("usuarios")
 }
@@ -85,44 +83,31 @@ model Rol {
 }
 
 model ReparacionNomenclada {
-  id                Int                 @id @default(autoincrement())
-  name              String              @unique
-  costo             Int
-  descripcion       String              @db.Text // 65,535
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime?           @updatedAt
-  Materiales_Usados Materiales_Usados[]
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  costo       Int
+  descripcion String    @db.Text // 65,535
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 
   @@fulltext([name, descripcion])
   @@map("reparaciones_nomencladas")
 }
 
 model Recepcion {
-  id           Int            @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   first_name   String
   last_name    String
-  email        String         @unique
-  telefono     String         @db.VarChar(15)
+  email        String        @unique
+  telefono     String        @db.VarChar(15)
   equipo       String
   tipo         String
-  descripcion  String         @db.Text // 65,535
+  descripcion  String        @db.Text // 65,535
   employee_id  Int
-  Employee     Usuario        @relation(fields: [employee_id], references: [id])
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  presupuestos presupuestos[]
+  Employee     Usuario       @relation(fields: [employee_id], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  presupuestos Presupuesto[]
 
   @@map("recepciones")
-}
-
-model Materiales_Usados {
-  id            Int                  @id @default(autoincrement())
-  reparacion_id Int
-  Reparacion    ReparacionNomenclada @relation(fields: [reparacion_id], references: [id])
-  material_id   Int
-  Material      Materials            @relation(fields: [material_id], references: [id])
-  createdAt     DateTime             @default(now())
-  updatedAt     DateTime             @updatedAt
-
-  @@map("Materiales_Usados")
 }
