@@ -6,7 +6,16 @@ import { Proveedor } from "@prisma/client";
 export class Proveedores {
   static index: Handler = async (req, res, next) => {
     try {
-      let prov = await prisma.proveedor.findMany();
+      let prov = await prisma.proveedor.findMany({
+
+      include: {
+          
+Materials:true,
+      },
+    });
+
+
+
       res.json(prov);
     } catch (e) {
       next(e);
@@ -95,7 +104,7 @@ export class Proveedores {
           id: validated,
         },
         include: {
-          Materials: req.url.includes("materiales"),
+          Materials: true,
         },
       });
     } catch (e) {

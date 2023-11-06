@@ -23,12 +23,12 @@ router.get('/presupuesto/Id', Presupuestos.show);
 /**
  * Actualizar presupuesto
  */
-router.put('/presupuestoId', Presupuestos.update);
+router.put('/presupuesto/Id', Presupuestos.update);
 
 /**
  * Eliminar presupuesto
  */
-router.delete('/presupuestoId', Presupuestos.delete);
+router.delete('/presupuesto/Id', Presupuestos.delete);
 
 // ========= Fin Presupuestos  =========
 

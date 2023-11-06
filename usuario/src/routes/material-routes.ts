@@ -29,7 +29,7 @@ router.put('/material/Id', Materiales.update);
 /**
  * Eliminar material 
  */
-router.delete('/materialId', Materiales.delete);
+router.delete('/material/Id', Materiales.delete);
 
 // ========= Fin materiales  =========
 

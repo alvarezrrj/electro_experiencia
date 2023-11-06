@@ -25,12 +25,12 @@ router.get('/proveedor/Id', Proveedores.show);
 /**
  * Actualizar proveedores
  */
-router.put('/proveedorId', Proveedores.update);
+router.put('/proveedor/Id', Proveedores.update);
 
 /**
  * Eliminar proveedores
  */
-router.delete('/proveedorId', Proveedores.delete);
+router.delete('/proveedor/Id', Proveedores.delete);
 
 // ========= Fin Proveedores =========
 

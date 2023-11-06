@@ -9,22 +9,7 @@ export class Presupuestos {
     try {
       let pres = await prisma.presupuesto.findMany({
         include: {
-          Recepcion: {
-            select: {
-              id: true,
-              first_name: true,
-              last_name: true,
-              email: true,
-              telefono: true,
-              equipo: true,
-              tipo: true,
-              descripcion: true,
-              createdAt: true,
-              updatedAt: true,
-              Employee:true,
-            },
-          },
-
+          
           Usuario: {
             select: {
               id: true,
@@ -39,6 +24,9 @@ export class Presupuestos {
               Rol:true,
             },
           },
+          materiales:true,
+          reparacionesNomencladas:true,
+          Recepcion:true,
         },
       });
 
@@ -64,7 +52,7 @@ export class Presupuestos {
 
     let data: Omit<Presupuesto, 'id' | 'createdAt' | 'updatedAt'> = req.body;
 
-
+/*
     let cliente = await prisma.usuario.findFirst({
       where: {
         id: data.client_id,
@@ -80,6 +68,9 @@ export class Presupuestos {
       err.name = "400";
       return next(err);
     }
+
+
+    */
 
     try {
       let pres = await prisma.presupuesto.create({ data });
