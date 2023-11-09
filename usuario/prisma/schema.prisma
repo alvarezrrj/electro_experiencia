@@ -12,16 +12,16 @@ datasource db {
 }
 
 model Material {
-  id            Int          @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   name          String
   descripcion   String
   stock         Int
   costo         Float
   proveedor_id  Int
-  Proveedor     Proveedor    @relation(fields: [proveedor_id], references: [id])
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  Presupuesto   Presupuesto? @relation(fields: [presupuestoId], references: [id])
+  Proveedor     Proveedor     @relation(fields: [proveedor_id], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  presupuestos  Presupuesto[]
   presupuestoId Int?
 
   @@map("materiales")
@@ -89,13 +89,13 @@ model Rol {
 }
 
 model ReparacionNomenclada {
-  id            Int          @id @default(autoincrement())
-  name          String       @unique
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
   costo         Int
-  descripcion   String       @db.Text // 65,535
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime?    @updatedAt
-  Presupuesto   Presupuesto? @relation(fields: [presupuestoId], references: [id])
+  descripcion   String        @db.Text // 65,535
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  presupuestos  Presupuesto[]
   presupuestoId Int?
 
   @@fulltext([name, descripcion])
