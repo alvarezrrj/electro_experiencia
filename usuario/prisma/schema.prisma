@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
@@ -11,61 +11,111 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Material {
+  id            Int           @id @default(autoincrement())
+  name          String
+  descripcion   String
+  stock         Int
+  costo         Float
+  proveedor_id  Int
+  Proveedor     Proveedor     @relation(fields: [proveedor_id], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  presupuestos  Presupuesto[]
+  presupuestoId Int?
+
+  @@map("materiales")
+}
+
+model Presupuesto {
+  id                      Int                    @id @default(autoincrement())
+  descripcion             String
+  recepcion_id            Int
+  Recepcion               Recepcion              @relation(fields: [recepcion_id], references: [id])
+  client_id               Int?
+  Usuario                 Usuario?               @relation(fields: [client_id], references: [id])
+  estado                  String
+  confirmado              Boolean
+  createdAt               DateTime               @default(now())
+  updatedAt               DateTime               @updatedAt
+  materiales              Material[]
+  reparacionesNomencladas ReparacionNomenclada[]
+
+  @@map("presupuestos")
+}
+
+model Proveedor {
+  id        Int        @id @default(autoincrement())
+  name      String
+  telefono  Int
+  email     String     @unique
+  detalles  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Materials Material[]
+
+  @@map("proveedores")
+}
+
 model Usuario {
-  id              Int         @id             // DNI
-  first_name      String
-  last_name       String
-  telefono        String      @db.VarChar(15)
-  email           String      @unique
-  cuit            String      @unique @db.VarChar(32)
-  condicion_iva   String      @default("Consumidor final")
-  password        String      @db.VarChar(64) // 256 bits in hex
+  id            Int           @id // DNI
+  first_name    String
+  last_name     String
+  telefono      String        @db.VarChar(15)
+  email         String        @unique
+  cuit          String        @unique @db.VarChar(32)
+  condicion_iva String        @default("Consumidor final")
+  password      String        @db.VarChar(64) // 256 bits in hex
   // gender          String
   // username        String      @unique
-  rol             Int     
-  Rol             Rol         @relation(fields: [rol], references: [id_rol])
-  Recepciones     Recepcion[]
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  rol           Int
+  Rol           Rol           @relation(fields: [rol], references: [id_rol])
+  Recepciones   Recepcion[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  presupuestos  Presupuesto[]
 
   @@map("usuarios")
 }
 
 model Rol {
-  id_rol          Int         @id @default(autoincrement())
-  descripcion     String      @unique
-  usuarios        Usuario[]  
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime?   @updatedAt
+  id_rol      Int       @id @default(autoincrement())
+  descripcion String    @unique
+  usuarios    Usuario[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 
   @@map("roles")
 }
 
 model ReparacionNomenclada {
-  id                Int         @id @default(autoincrement())
-  name              String      @unique
-  costo             Int
-  descripcion       String      @db.Text      // 65,535
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime?   @updatedAt
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  costo         Int
+  descripcion   String        @db.Text // 65,535
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  presupuestos  Presupuesto[]
+  presupuestoId Int?
 
   @@fulltext([name, descripcion])
   @@map("reparaciones_nomencladas")
 }
 
 model Recepcion {
-  id                Int         @id @default(autoincrement())
-  first_name        String
-  last_name         String
-  email             String      @unique
-  telefono          String      @db.VarChar(15)
-  equipo            String
-  tipo              String
-  descripcion       String      @db.Text      // 65,535
-  employee_id       Int         
-  Employee          Usuario     @relation(fields: [employee_id], references: [id])
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  id           Int           @id @default(autoincrement())
+  first_name   String
+  last_name    String
+  email        String        @unique
+  telefono     String        @db.VarChar(15)
+  equipo       String
+  tipo         String
+  descripcion  String        @db.Text // 65,535
+  employee_id  Int
+  Employee     Usuario       @relation(fields: [employee_id], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  presupuestos Presupuesto[]
 
   @@map("recepciones")
 }
