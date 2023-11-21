@@ -30,8 +30,8 @@ export const localStrategy: passport.Strategy = new LocalStrategy(
           },
         });
 
-        //@ts-ignore
-        if (!user) return done(null, false, {message: 'Hola'});
+        // if (!user) return done(null, false, {message: 'Usuario no encontrado'});
+        if (!user) return done(null, false);
 
         if (user.password !== Auth.hashPassword(password)) return done(null, false);
 
@@ -52,6 +52,9 @@ export const deserializer = async (id: number, done: passport.DoneCallback) => {
         try {
             let user = await prisma.usuario.findUnique({
                 where: { id },
+                include: {
+                    Rol: true,
+                }
             });
 
             return done(null, user);
