@@ -38,6 +38,9 @@
 + [Editar recepción](#editar-recepción)
 + [Eliminar recepción](#eliminar-recepción)
 
+#### Turnos (solicitud de diagnóstico o visita)
++ [Ver turnos](#ver-turnos)
+
 #### Login
 + [Iniciar sesión](#iniciar-sesión)
 + [Cerrar sesión](#cerrar-sesión)
@@ -291,6 +294,47 @@ Method     | POST
 Returns    | OK 200 si la sesión se cierra sin problemas.
 Error      | [`Error`](#error)
 
+### Crear turno
+
+|Endpoint:| `/turno`
+---|---|
+Method      | POST
+Body (json) | [`CamposDeTurno`](#camposdeturno)
+Returns     | [`Turno`](#turno)
+Error     | [`Error`](#error)
+
+### Ver turnos
+
+|Endpoint:| `/turno/:turnoId?`|
+---|---|
+Ej.       | /turno/1
+Method    | GET                   
+Parametros| turnoId: `int` (opcional)
+Returns   | [`Turno[]`](#turno)
+Error     | [`Error`](#error)
+
+**Nota**: omitir parametro turnoId para ver todos los turnos
+
+### Editar turno
+
+|Endpoint:| `/turno/:turnoId`|
+---|---|
+Ej.       | /turno/1
+Method    | PUT                   
+Parametros| turnoId: `int`
+Returns   | [`Turno[]`](#turno)
+Error     | [`Error`](#error)
+
+### Eliminar turno
+
+|Endpoint:| `/turno/:turnoId`|
+---|---|
+Ej.       | /turno/1
+Method    | DELETE
+Parametros| turnoId: `int`
+Returns   | OK 200 si el turno se elimina sin problemas
+Error     | [`Error`](#error)
+
 ## Interfaces
 
 ### Rol
@@ -298,7 +342,7 @@ Error      | [`Error`](#error)
 {
 //  nombre       tipo       tamaño
     id_rol:      int        (11)
-    descripcion: string     (191 chars max)
+    descripcion: string     (191)
     createdAt:   dateTime                      // YYYY-MM-DD HH:MM:SS
     updatedAt:   dateTime                      // YYYY-MM-DD HH:MM:SS
 }
@@ -309,13 +353,13 @@ Error      | [`Error`](#error)
 {
 //  nombre          tipo       tamaño
     id:             int        (11)            // DNI
-    first_name:     string     (191 chars max)
-    last_name:      string     (191 chars max)
-    email:          string     (191 chars max)
+    first_name:     string     (191)
+    last_name:      string     (191)
+    email:          string     (191)
     // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
     password:       string     
-    cuit:           string     (32 chars max) 
-    condicion_iva:  string     (191 chars max) // Default: "Consumidor final"
+    cuit:           string     (32) 
+    condicion_iva:  string     (191) // Default: "Consumidor final"
     rol:            int        (11)
 }
 ```
@@ -325,12 +369,12 @@ Error      | [`Error`](#error)
 {
 //  nombre          tipo       tamaño
     id:             int        (11) 
-    first_name:     string     (191 chars max)
-    last_name:      string     (191 chars max)
-    email:          string     (191 chars max)
-    telefono:       string     (15 chars max)
-    cuit:           string     (32 chars max) 
-    condicion_iva:  string     (191 chars max)
+    first_name:     string     (191)
+    last_name:      string     (191)
+    email:          string     (191)
+    telefono:       string     (15)
+    cuit:           string     (32) 
+    condicion_iva:  string     (191)
     createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
     updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
     Rol:            Rol    
@@ -401,9 +445,9 @@ Error      | [`Error`](#error)
     last_name    string     (191)
     email        string     (191)
     telefono     string     (15)
-    equipo       string     (191)
+    equipo       string     (191)              // Modelo
     tipo         string     (191)
-    descripcion  string     (65,535)
+    descripcion  string     (65,535)           // Descripción de la falla
     employee_id  int        (11)
     Employee     Usuario     
     createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
@@ -426,6 +470,35 @@ Error      | [`Error`](#error)
     employee_id  int        (11)
     createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
     updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
+}
+```
+
+### CamposDeTurno
+```typescript
+{
+//  nombre       tipo       tamaño
+    name         string     (191)
+    email        string     (191)
+    telefono     string     (191)
+    descripcion  string     (65,535)
+    equipo       string     (191)
+    fecha        dateTime                      // YYYY-MM-DD HH:MM:SS  
+}
+```
+
+### Turno
+```typescript
+{
+//  nombre       tipo       tamaño
+    id           int        (11)
+    name         string     (191)
+    email        string     (191)
+    telefono     string     (191)
+    descripcion  string     (65,535)
+    equipo       string     (191)
+    fecha        dateTime                      // YYYY-MM-DD HH:MM:SS  
+    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS  
+    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS  
 }
 ```
 

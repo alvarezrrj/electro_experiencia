@@ -5,6 +5,7 @@ import {
   Material,
   Presupuesto,
   Proveedor,
+  Turno,
 } from "@prisma/client";
 import { Request } from "express";
 
@@ -36,6 +37,10 @@ export interface presupuestosRequest extends Request {
 
 export interface proveedorRequest extends Request {
   Proveedores?: Proveedor[];
+}
+
+export interface AppointmentRequest extends Request {
+  appointments?: Turno[];
 }
 
 export class CustomError extends Error {}
