@@ -20,6 +20,7 @@ const authRouter = require("./routes/auth-routes");
 const materialsRouter = require("./routes/material-routes");
 const presupuestosRouter = require("./routes/presupuesto-routes");
 const proveedorRouter = require("./routes/proveedor-routes");
+const appointmentRouter = require("./routes/appointment-routes");
 
 // Load environment variables
 require("dotenv").config();
@@ -64,6 +65,7 @@ app.use("/", authRouter);
 app.use("/", materialsRouter);
 app.use("/", presupuestosRouter);
 app.use("/", proveedorRouter);
+app.use("/", appointmentRouter);
 
 /**
  * Error handling
