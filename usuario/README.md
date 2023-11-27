@@ -39,7 +39,10 @@
 + [Eliminar recepción](#eliminar-recepción)
 
 #### Turnos (solicitud de diagnóstico o visita)
++ [Crear turno](#crear-turno)
 + [Ver turnos](#ver-turnos)
++ [Editar turno](#editar-turno)
++ [Eliminar turno](#eliminar-turno)
 
 #### Login
 + [Iniciar sesión](#iniciar-sesión)
