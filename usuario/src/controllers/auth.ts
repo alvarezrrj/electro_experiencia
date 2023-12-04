@@ -1,18 +1,5 @@
 import { Handler } from "express";
-import { prisma } from "..";
-import { CustomError } from "../interfaces/interfaces";
-import { Rol, Usuario } from "@prisma/client";
 const { createHash } = require('node:crypto');
-
-interface SessionUser extends Usuario {
-    Rol: Rol
-}
-
-declare module 'express-session' {
-    interface SessionData {
-        user: SessionUser;
-    }
-}
 
 export class Auth {
     static login: Handler = async (req, res, next) => {

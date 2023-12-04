@@ -1,34 +1,43 @@
 import { Presupuestos } from "../controllers/presupuesto";
+import { AuthGuard } from "../middleware/auth-middleware";
 
 const express = require('express');
 
 const router = express.Router();
+
 // ========= Presupuestos =========
 
 /**
- * Crear presupuestos
+ * Solo usuarios logueados pueden acceder
  */
-router.post('/presupuesto', Presupuestos.create);
+router.use(AuthGuard.authed);
 
 /**
- * Ver todos los presupuestos
+ * Crear presupuestos (solo tecnico tiene acceso)
  */
-router.get('/presupuesto/', Presupuestos.index)
+router.post('/presupuesto', AuthGuard.employee, Presupuestos.create);
+
+/**
+ * Ver todos los presupuestos (solo recepcionista tiene acceso)
+ */
+router.get('/presupuesto/', AuthGuard.employee, Presupuestos.index)
 
 router.param('id', Presupuestos.presupuestosRequestHandler);
 
-
-router.get('/presupuesto/Id', Presupuestos.show);
+/**
+ * Ver presupuesto individual (solo empleado y cliente tienen acceso)
+ */
+router.get('/presupuesto/Id', AuthGuard.presupuesto, Presupuestos.show);
 
 /**
- * Actualizar presupuesto
+ * Actualizar presupuesto (solo tecnico tiene acceso)
  */
-router.put('/presupuesto/Id', Presupuestos.update);
+router.put('/presupuesto/Id', AuthGuard.employee, Presupuestos.update);
 
 /**
- * Eliminar presupuesto
+ * Eliminar presupuesto (solo tecnico tiene acceso)
  */
-router.delete('/presupuesto/Id', Presupuestos.delete);
+router.delete('/presupuesto/Id', AuthGuard.employee, Presupuestos.delete);
 
 // ========= Fin Presupuestos  =========
 

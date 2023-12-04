@@ -1,4 +1,5 @@
 import { Repair } from "../controllers/repair";
+import { AuthGuard } from "../middleware/auth-middleware";
 
 const express = require('express');
 
@@ -6,6 +7,11 @@ const router = express.Router();
 
 
 // ========= ReparacionNomencladaes =========
+
+/**
+ * Solo tecnicos pueden acceder
+ */
+router.use(AuthGuard.authed, AuthGuard.employee);
 
 /**
  * Crear reparacion

@@ -1,10 +1,16 @@
 import { Reception } from "../controllers/reception";
+import { AuthGuard } from "../middleware/auth-middleware";
 
 const express = require('express');
 
 const router = express.Router();
 
 // ========= Recepciones =========
+
+/**
+ * Solo empleados (recepcionista y tecnico) pueden acceder
+ */
+router.use(AuthGuard.authed, AuthGuard.employee);
 
 /**
  * Crear recepción

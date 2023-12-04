@@ -48,6 +48,8 @@
 
 ### Crear rol
 
+Requiere rol `admin`.
+
 |Endpoint:| `/rol`|
 ---|---|
 Method      | POST
@@ -55,9 +57,11 @@ Body (`json`) | `{ descripcion: string }`
 Returns     | [`Rol`](#rol) (el rol creado)
 Error       | [`Error`](#error)
 
-**Nota**: la descripción es convertida a minúsculas. Roles con la misma descripción no están permitidos.
+> **Nota**: la descripción es convertida a minúsculas. Roles con la misma descripción no están permitidos.
 
 ### Ver roles
+
+Requiere rol `admin`.
 
 |Endpoint:| `/rol/:rolId?`|
 ---|---|
@@ -67,10 +71,12 @@ Parametros| rolId: `int` (opcional)
 Returns   | [`Rol[]`](#rol)
 Error     | [`Error`](#error)
 
-**Nota**: omitir parametro roleId para ver todos los roles
+> **Nota**: omitir parametro roleId para ver todos los roles
 
 
 ### Editar un rol
+
+Requiere rol `admin`.
 
 |Endpoint:| `/rol/:rolId`|
 ---|---|
@@ -80,8 +86,9 @@ Body (`json`)| `{ descripcion: string }`
 Returns    | [`Rol`](#rol) (el rol editado)
 Error      | [`Error`](#error)
 
-
 ### Eliminar un rol
+
+Requiere rol `admin`.
 
 |Endpoint:| `/rol/:rolId`|
 ---|---|
@@ -90,10 +97,9 @@ Parametros | rolId: `int`
 Returns    | OK 200 si el rol se elimina sin problemas
 Error      | [`Error`](#error)
 
-
 ### Crear usuario
 
-Crear cualquier tipo de usuario, se le debe asignar un rol
+Crear cualquier tipo de usuario, se le debe asignar un rol. Requiere rol `admin`.
 
 |Endpoint:| `/usuario`|
 ---|---|
@@ -102,11 +108,11 @@ Body (`json`)| [`CamposDeUsuario`](#camposdeusuario)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario creado)
 Error      | [`Error`](#error)
 
-**Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
+> **Nota**: omitir el parámetro rol para asignarle el rol por defecto (cliente)
 
 ### Crear cliente
 
-Crear un usuario con rol `cliente`
+Crear un usuario con rol `cliente`. No requiere estar logueado.
 
 |Endpoint:| `/usuario/clientes`|
 ---|---|
@@ -117,7 +123,7 @@ Error      | [`Error`](#error)
 
 ### Crear empleado
 
-Crear un usuario con rol `empleado`
+Crear un usuario con rol `empleado`. Requiere rol `admin`.
 
 |Endpoint:| `/usuario/empleados`|
 ---|---|
@@ -128,6 +134,8 @@ Error      | [`Error`](#error)
 
 ### Ver usuarios por dni
 
+Requiere rol `empleado`.
+
 |Endpoint:| `/usuario/:dni`|
 ---|---|
 Ej.        | /usuario/33333333
@@ -136,9 +144,12 @@ Parametros | dni: `int` (opcional)
 Returns    | [`Usuario[]`](#usuario)
 Error      | [`Error`](#error)
 
-**Nota**: omitir parametro dni para ver todos los usuarios
+> **Nota**: omitir parametro dni para ver todos los usuarios
 
 ### Ver usuarios por rol
+
+Requiere rol `empleado`.
+
 |Endpoint:| `/rol/:rolId/usuarios`|
 ---|---|
 Method     | GET
@@ -148,6 +159,8 @@ Error      | [`Error`](#error)
 
 ### Ver clientes
 
+Requiere rol `empleado`.
+
 |Endpoint:| `/usuario/clientes`|
 ---|---|
 Method     | GET
@@ -155,6 +168,8 @@ Returns    | [`Usuario[]`](#usuario)
 Error      | [`Error`](#error)
 
 ### Ver empleados
+
+Requiere rol `empleado`.
 
 |Endpoint:| `/usuario/empleados`|
 ---|---|
@@ -164,6 +179,8 @@ Error      | [`Error`](#error)
 
 ### Editar un usuario
 
+Requiere rol `admin` para editar cualquier usuario que no sea el usuario logueado.
+
 |Endpoint:| `/usuario`|
 ---|---|
 Method     | PUT
@@ -171,7 +188,11 @@ Body (`json`)| [`CamposDeUsuario`](#camposdeusuario)
 Returns    | [`UsuarioCreado`](#usuariocreado) (el usuario editado)
 Error      | [`Error`](#error)
 
+> **Nota**: cualquier usuario que no sea `admin` no puede editar su propio rol ni editar otros usuarios. Omitir el campo `rol` cuando el usuario no es `admin`.
+
 ### Eliminar un usuario
+
+Requiere rol `admin` para eliminar cualquier usuario que no sea el usuario logueado.
 
 |Endpoint:| `/usuario/:dni`|
 ---|---|
@@ -182,6 +203,9 @@ Returns    | OK 200 si el usuario se elimina sin problemas
 Error      | [`Error`](#error)
 
 ### Crear reparación
+
+Requiere rol `empleado`
+
 |Endpoint:| `/reparacion`|
 ---|---|
 Method     | POST
@@ -190,6 +214,8 @@ Returns    | [`ReparacionNomenclada`](#reparacionnomenclada) (la reparación cre
 Error      | [`Error`](#error)
 
 ### Editar reparación
+
+Requiere rol `empleado`
 
 |Endpoint:| `/reparacion`|
 ---|---|
@@ -200,6 +226,8 @@ Error      | [`Error`](#error)
 
 ### Ver reparaciones
 
+Requiere rol `empleado`
+
 |Endpoint:| `/reparacion/:reparacionId?`|
 ---|---|
 Method    | GET                   
@@ -207,9 +235,11 @@ Parametros| reparacionId: `int` (opcional)
 Returns   | [`ReparacionNomenclada[]`](#reparacionnomenclada)
 Error     | [`Error`](#error)
 
-**Nota**: omitir parametro reparacionId para ver todas las reparaciones
+> **Nota**: omitir parametro reparacionId para ver todas las reparaciones
 
 ### Buscar reparación
+
+Requiere rol `empleado`
 
 |Endpoint:| `/reparacion/search?q=search_string`|
 ---|---|
@@ -222,6 +252,8 @@ Error     | [`Error`](#error)
 
 ### Eliminar reparación
 
+Requiere rol `empleado`
+
 |Endpoint:| `/reparacion/:reparacionId`|
 ---|---|
 Ej.        | /reparacion/1
@@ -231,6 +263,9 @@ Returns    | OK 200 si la reparación se elimina sin problemas
 Error      | [`Error`](#error)
 
 ### Crear recepción
+
+Requiere rol `empleado`
+
 |Endpoint:| `/recepcion`|
 ---|---|
 Method     | POST
@@ -238,9 +273,11 @@ Body (`json`)| [`CamposDeRecepcion`](#camposderecepcion)
 Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción creada)
 Error      | [`Error`](#error)
 
-**Nota**: `employee_id` debe ser el `id` de un usuario con `rol` "employee"
+> **Nota**: `employee_id` debe ser el `id` de un usuario con `rol` "employee"
 
 ### Ver recepciones
+
+Requiere rol `empleado`
 
 |Endpoint:| `/recepcion/:recepcionId?`|
 ---|---|
@@ -250,9 +287,12 @@ Parametros| recepcionId: `int` (opcional)
 Returns   | [`Recepcion[]`](#recepcion)
 Error     | [`Error`](#error)
 
-**Nota**: omitir parametro recepcionId para ver todas las recepciones
+> **Nota**: omitir parametro recepcionId para ver todas las recepciones
 
 ### Editar recepción
+
+Requiere rol `empleado`
+
 |Endpoint:| `/recepcion/:recepcionId`|
 ---|---|
 Method     | PUT
@@ -262,6 +302,8 @@ Returns    | [`RecepcionCreada`](#recepcioncreada) (la recepción editada)
 Error      | [`Error`](#error)
 
 ### Eliminar recepción
+
+Requiere rol `empleado`
 
 |Endpoint:| `/recepcion/:recepcionId`|
 ---|---|

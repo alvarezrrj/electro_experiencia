@@ -2,6 +2,7 @@ import { Application } from "express";
 import { PrismaClient } from "@prisma/client";
 import { errorHandler } from "./middleware/error-handler";
 import {
+  AuthGuard,
   deserializer,
   localStrategy,
   serializer,
@@ -49,6 +50,11 @@ passport.deserializeUser(deserializer);
 
 // Deserialize user and populate req.user
 app.use(passport.session());
+
+app.use('/', (req, res, next) => {
+  console.log('USER', req.user);
+  next();
+})
 
 // Assign routes
 app.use("/", userRouter);

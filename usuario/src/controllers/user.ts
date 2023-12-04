@@ -57,10 +57,8 @@ export class User {
     }
   };
 
-  // TO DO Avoid users without the right permissions to update user role
-  // or another user
   public static update: Handler = async (req, res, next) => {
-    let data: Usuario = req.body;
+    let data: Omit<Usuario, 'createdAt' | 'updatedAt'> = req.body;
     try {
       let user = await prisma.usuario.update({
         where: {
