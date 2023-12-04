@@ -346,8 +346,8 @@ Error     | [`Error`](#error)
 //  nombre       tipo       tamaño
     id_rol:      int        (11)
     descripcion: string     (191)
-    createdAt:   dateTime                      // YYYY-MM-DD HH:MM:SS
-    updatedAt:   dateTime                      // YYYY-MM-DD HH:MM:SS
+    createdAt:   dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
+    updatedAt:   dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
 }
 ```
 
@@ -362,6 +362,7 @@ Error     | [`Error`](#error)
     // 8 caracteres, una mayúscula, una minúscula, un número y un simbolo
     password:       string     
     cuit:           string     (32) 
+    telefono:       int        (11)
     condicion_iva:  string     (191) // Default: "Consumidor final"
     rol:            int        (11)
 }
@@ -378,8 +379,8 @@ Error     | [`Error`](#error)
     telefono:       string     (15)
     cuit:           string     (32) 
     condicion_iva:  string     (191)
-    createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
-    updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
+    createdAt:      dateTime                   // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
+    updatedAt:      dateTime                   // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
     Rol:            Rol    
 }
 ```
@@ -396,8 +397,8 @@ Error     | [`Error`](#error)
     cuit:           string     (32) 
     condicion_iva:  string     (191)
     rol:            int        (11)
-    createdAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
-    updatedAt:      dateTime                   // YYYY-MM-DD HH:MM:SS
+    createdAt:      dateTime                   // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
+    updatedAt:      dateTime                   // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
 }
 ```
 
@@ -419,8 +420,8 @@ Error     | [`Error`](#error)
     name         string     (191)
     descripcion  string     (65,535)
     costo        int        (11)
-    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS
-    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS
+    createdAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
+    updatedAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)
 }
 ```
 
@@ -453,8 +454,8 @@ Error     | [`Error`](#error)
     descripcion  string     (65,535)           // Descripción de la falla
     employee_id  int        (11)
     Employee     Usuario     
-    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
-    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
+    createdAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)    
+    updatedAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)    
 }
 ```
 
@@ -471,8 +472,8 @@ Error     | [`Error`](#error)
     tipo         string     (191)
     descripcion  string     (65,535)
     employee_id  int        (11)
-    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
-    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS    
+    createdAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)    
+    updatedAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)    
 }
 ```
 
@@ -485,7 +486,7 @@ Error     | [`Error`](#error)
     telefono     string     (191)
     descripcion  string     (65,535)
     equipo       string     (191)
-    fecha        dateTime                      // YYYY-MM-DD HH:MM:SS  
+    fecha        dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)  
 }
 ```
 
@@ -499,9 +500,9 @@ Error     | [`Error`](#error)
     telefono     string     (191)
     descripcion  string     (65,535)
     equipo       string     (191)
-    fecha        dateTime                      // YYYY-MM-DD HH:MM:SS  
-    createdAt    dateTime                      // YYYY-MM-DD HH:MM:SS  
-    updatedAt    dateTime                      // YYYY-MM-DD HH:MM:SS  
+    fecha        dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)  
+    createdAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)  
+    updatedAt    dateTime                      // YYYY-MM-DDTHH:MM:SS.SSSZ (ISO8601)  
 }
 ```
 
