@@ -1,5 +1,6 @@
 import { Rol } from "../controllers/rol";
 import { User } from "../controllers/user";
+import { AuthGuard } from "../middleware/auth-middleware"
 import { requiresDescription } from "../middleware/rol-middleware";
 import { extractRoleFromUrl, validateUserFields } from "../middleware/user-middleware";
 
@@ -12,29 +13,29 @@ const router = express.Router();
 /**
  * Crear rol
  */
-router.post('/rol', requiresDescription, Rol.create);
+router.post('/rol', AuthGuard.admin, requiresDescription, Rol.create);
 
 router.param('rolId', Rol.rolRequestHandler);
 
 /**
  * Ver todos los roles
  */
-router.get("/rol", Rol.index);
+router.get("/rol", AuthGuard.admin, Rol.index);
 
 /**
  * Ver rol por ID
  */
-router.get('/rol/:rolId', Rol.show);
+router.get('/rol/:rolId', AuthGuard.admin, Rol.show);
 
 /**
  * Editar un rol
  */
-router.post('/rol/:rolId', requiresDescription, Rol.update);
+router.post('/rol/:rolId', AuthGuard.admin, requiresDescription, Rol.update);
 
 /**
  * Eliminar un rol
  */
-router.delete('/rol/:rolId', Rol.delete);
+router.delete('/rol/:rolId', AuthGuard.admin, Rol.delete);
 
 // ========= Fin Rol =========
 

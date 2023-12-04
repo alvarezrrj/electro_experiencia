@@ -3,15 +3,64 @@ import { prisma } from "..";
 import { Auth } from "../controllers/auth";
 import passport from "passport";
 import { Usuario } from "@prisma/client";
+import { SD } from "../interfaces/interfaces";
 const LocalStrategy = require("passport-local");
 
-export const requiresAuth: Handler = (req, res, next) => {
-  if (!req.session.user) {
-    res.status(401).json({
-      message: "No autorizado",
-    });
+export class AuthGuard {
+  /**
+   * Requires user to be authenticated
+   */
+  public static authed: Handler = (req, res, next) => {
+    if (!req.session.user) {
+      res.status(401).json({
+        message: "No autorizado",
+      });
+    } else {
+      next();
+    }
   }
-};
+
+  /**
+   * Requires authenticated user to be admin
+   */
+  public static admin: Handler = (req, res, next) => {
+    if (req.session.user?.Rol.descripcion !== SD.ROLES.ADMIN) {
+      res.status(403).json({
+        message: "No autorizado",
+      });
+    } else {
+      next();
+    }
+  }
+
+  /**
+   * Requires authenticated user to be employee (or admin)
+   */
+  static employee: Handler = (req, res, next) => {
+    if (req.session.user?.Rol.descripcion !== SD.ROLES.EMPLOYEE &&
+        req.session.user?.Rol.descripcion !== SD.ROLES.ADMIN) {
+      res.status(403).json({
+        message: "No autorizado",
+      });
+    } else {
+      next();
+    }
+  }
+
+  /**
+   * Requires authenticated user to be client (or admin)
+   */
+  static client: Handler = (req, res, next) => {
+    if (req.session.user?.Rol.descripcion !== SD.ROLES.CLIENT &&
+      req.session.user?.Rol.descripcion !== SD.ROLES.ADMIN) {
+      res.status(403).json({
+        message: "No autorizado",
+      });
+    } else {
+      next();
+    }
+  }
+}
 
 export const localStrategy: passport.Strategy = new LocalStrategy(
   {
@@ -30,7 +79,6 @@ export const localStrategy: passport.Strategy = new LocalStrategy(
           },
         });
 
-        // if (!user) return done(null, false, {message: 'Usuario no encontrado'});
         if (!user) return done(null, false);
 
         if (user.password !== Auth.hashPassword(password)) return done(null, false);
@@ -39,11 +87,10 @@ export const localStrategy: passport.Strategy = new LocalStrategy(
     } catch (e) {
         done(e);
     }
-    //   req.session.user = user;
   }
 );
 
-export const serializer= (user: Usuario, done: passport.DoneCallback) => {
+export const serializer = (user: Usuario, done: passport.DoneCallback) => {
     return done(null, user.id);
 }
 
