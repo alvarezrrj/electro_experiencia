@@ -50,6 +50,7 @@
 
 #### Otros
 + [Interfaces](#interfaces)
++ [Desarrollo](#desarrollo)
 + [Despliegue](#despliegue)
 
 ### Crear rol
@@ -513,6 +514,34 @@ Error     | [`Error`](#error)
 }
 ```
 
+## Desarrollo
+Para clonar el repositorio y correr una instancia local del servidor:
+
+```bash
+$ git clone https://github.com/alvarezrrj/electro_experiencia
+# Entrar al directorio electro_experiencie/usuario
+$ cd electro_experiencia
+$ cd usuario
+# Copiar el archivo .env.example a .env
+$ cp .env.example .env
+# Abrir .env y asignarle un valor a las variables, luego
+# Instalar dependencias
+$ npm install
+# Compilar TypeScript
+$ npx tsc
+# Levantar base de datos
+$ npx prisma migrate deploy
+# Generar el Prisma Client
+$ npx prisma generate
+# Poblar BBDD
+$ npm run seed
+# Iniciar el compilador de TypeScript (este paso no es necesario si no se
+# piensa hacer cambios en el código) 
+$ npm run dev
+# Levantar el servidor (correr en otra terminal)
+$ npm run serve
+```
+
 ## Despliegue
 
 Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Luego, desde el directorio `usuario` correr
@@ -531,6 +560,7 @@ Para instalar dependencias, compilar TypeScript, correr migraciones, generar el 
 Empujar a la rama `master` dispara un despliegue en Render.
 
 
-## Autor
+## Autores
 
 **[Rodrigo Alvarez](https://github.com/alvarezrrj)**
+**[Samuel Ludueña]()**
