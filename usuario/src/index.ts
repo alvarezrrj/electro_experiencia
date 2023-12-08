@@ -2,6 +2,7 @@ import { Application } from "express";
 import { PrismaClient } from "@prisma/client";
 import { errorHandler } from "./middleware/error-handler";
 import {
+  AuthGuard,
   deserializer,
   localStrategy,
   serializer,
@@ -9,7 +10,6 @@ import {
 
 const express = require("express");
 const bodyParser = require("body-parser");
-// const qs = require('qs');
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
 const passport = require("passport");
@@ -35,11 +35,11 @@ export const prisma = new PrismaClient();
 // Initialize session
 app.use(
   session({
-    resave: false, // don't save session if unmodified
-    saveUninitialized: false, // don't create session until something stored
+    resave: false,                  // don't save session if unmodified
+    saveUninitialized: false,       // don't create session until something stored
     secret: process.env.APP_SECRET,
     store: new MemoryStore({
-      checkPeriod: 86400000, // prune expired entries every 24h
+      checkPeriod: 86400000,        // prune expired entries every 24h
     }),
   })
 );
@@ -52,10 +52,10 @@ passport.deserializeUser(deserializer);
 // Deserialize user and populate req.user
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  console.log("USER: ", req.user);
+app.use('/', (req, res, next) => {
+  console.log('USER', req.user);
   next();
-});
+})
 
 // Assign routes
 app.use("/", userRouter);

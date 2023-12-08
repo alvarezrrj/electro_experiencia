@@ -1,4 +1,5 @@
 import { Proveedores } from "../controllers/proveedor";
+import { AuthGuard } from "../middleware/auth-middleware";
 
 
 const express = require('express');
@@ -6,6 +7,11 @@ const express = require('express');
 const router = express.Router();
 
 // ========= Proveedores =========
+
+/**
+ * Solo recepcionista tiene acceso
+ */
+router.use(AuthGuard.authed, AuthGuard.employee);
 
 /**
  * Crear proveedores
