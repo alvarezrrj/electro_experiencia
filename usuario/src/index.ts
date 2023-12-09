@@ -8,8 +8,8 @@ import {
 } from "./middleware/auth-middleware";
 
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
-// const qs = require('qs');
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
 const passport = require("passport");
@@ -29,6 +29,9 @@ const port = process.env.port || 4200;
 const app: Application = express();
 app.use(bodyParser.json());
 app.set("query parser", "extended");
+
+// Enable CORS
+app.use(cors());
 
 export const prisma = new PrismaClient();
 
