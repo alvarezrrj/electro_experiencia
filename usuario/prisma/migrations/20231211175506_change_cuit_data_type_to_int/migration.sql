@@ -5,6 +5,7 @@
 
 */
 -- DropIndex
+DROP INDEX IF EXISTS `usuarios_cuit_key` ON `usuarios`;
 
 -- AlterTable
 ALTER TABLE `usuarios` MODIFY `cuit` INTEGER NOT NULL;

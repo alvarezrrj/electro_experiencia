@@ -63,7 +63,7 @@ model Usuario {
   last_name     String
   telefono      Int           
   email         String        @unique
-  cuit          Int
+  cuit          BigInt        @unique
   condicion_iva String        @default("Consumidor final")
   password      String        @db.VarChar(64) // 256 bits in hex
   // gender          String
