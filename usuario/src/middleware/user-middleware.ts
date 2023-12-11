@@ -35,6 +35,11 @@ export const validateUserFields: Handler = async (req, res, next) => {
         return next(err);
     }
     // validate password
+    if (! data.password) {
+        let err = new CustomError('elemento "password" no encontrado');
+        err.name = '400';
+        return next(err);
+    }
     if (data.password.length < 8 ||
         ! /[A-Z]/.test(data.password) ||
         ! /[a-z]/.test(data.password) ||
@@ -46,7 +51,7 @@ export const validateUserFields: Handler = async (req, res, next) => {
     }
     try {
         if (!data.rol) {
-            let defaultRol = await Rol.findByDescripcion('client');
+            let defaultRol = await Rol.findByDescripcion(SD.ROLES.CLIENT);
             if (!defaultRol) {
                 let err = new CustomError('No pudimos encontrar un rol para asignarle a ese usuario');
                 err.name = '404';
