@@ -12,7 +12,13 @@ export class User {
             Rol: true,
           },
       });
-      res.json(this.exclude(users, ["password"]));
+      let response = JSON.stringify(
+        this.exclude(users, ["password"]),
+        (key, value) => typeof value === 'bigint'
+          ? value.toString()
+          : value
+      );
+      res.send(response);
     } catch (e) {
       next(e);
     } finally {
@@ -23,7 +29,14 @@ export class User {
   static show: Handler = async (req: UserRequest, res, next) => {
     prisma.$disconnect();
     if (!req.users) return next(new Error());
-    res.json(this.exclude(req.users, ["password"]));
+    let response = JSON.stringify(
+      this.exclude(req.users, ["password"])[0],
+      (key, value) => typeof value === 'bigint'
+        ? value.toString()
+        : value
+    );
+
+    res.send(response);
   };
 
   static listByRole: Handler = async (req, res, next) => {
@@ -36,7 +49,14 @@ export class User {
           Rol: true,
         },
       });
-      res.json(this.exclude(users, ["password"]));
+      let response = JSON.stringify(
+        this.exclude(users, ["password"]),
+        (key, value) => typeof value === 'bigint'
+          ? value.toString()
+          : value
+      );
+      // res.json(this.exclude(users, ["password"]));
+      res.send(response);
     } catch (e) {
       next(e);
     } finally {
@@ -74,7 +94,14 @@ export class User {
         },
         data,
       });
-      res.json(this.exclude([user], ["password"])[0]);
+      // res.json(this.exclude([user], ["password"])[0]);
+      let response = JSON.stringify(
+        this.exclude([user], ["password"])[0],
+        (key, value) => typeof value === 'bigint'
+          ? value.toString()
+          : value
+      );
+      res.send(response)
     } catch (e) {
       next(e);
     } finally {
