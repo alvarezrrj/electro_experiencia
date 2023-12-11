@@ -18,7 +18,7 @@ export class User {
           ? value.toString()
           : value
       );
-      res.send(response);
+      res.header({'Content-Type': 'application/json'}).send(response);
     } catch (e) {
       next(e);
     } finally {
@@ -36,7 +36,7 @@ export class User {
         : value
     );
 
-    res.send(response);
+    res.header({'Content-Type': 'application/json'}).send(response);
   };
 
   static listByRole: Handler = async (req, res, next) => {
@@ -55,8 +55,7 @@ export class User {
           ? value.toString()
           : value
       );
-      // res.json(this.exclude(users, ["password"]));
-      res.send(response);
+      res.header({'Content-Type': 'application/json'}).send(response);
     } catch (e) {
       next(e);
     } finally {
@@ -77,14 +76,12 @@ export class User {
           ? value.toString()
           : value
       );
-      res.send(response);
+      res.header({'Content-Type': 'application/json'}).send(response);
     } catch (e) {
       next(e);
     }
   };
 
-  // TO DO Avoid users without the right permissions to update user role
-  // or another user
   public static update: Handler = async (req, res, next) => {
     let data: Usuario = req.body;
     try {
@@ -101,7 +98,7 @@ export class User {
           ? value.toString()
           : value
       );
-      res.send(response)
+      res.header({'Content-Type': 'application/json'}).send(response)
     } catch (e) {
       next(e);
     } finally {
