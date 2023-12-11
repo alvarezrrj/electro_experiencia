@@ -51,7 +51,13 @@ export class User {
 
     try {
       let user = await prisma.usuario.create({ data });
-      res.json(this.exclude([user], ["password"])[0]);
+      let response = JSON.stringify(
+        this.exclude([user], ["password"])[0],
+        (key, value) => typeof value === 'bigint'
+          ? value.toString()
+          : value
+      );
+      res.send(response);
     } catch (e) {
       next(e);
     }
