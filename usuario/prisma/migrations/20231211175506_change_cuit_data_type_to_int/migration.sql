@@ -5,7 +5,6 @@
 
 */
 -- DropIndex
-DROP INDEX `usuarios_cuit_key` ON `usuarios`;
 
 -- AlterTable
 ALTER TABLE `usuarios` MODIFY `cuit` INTEGER NOT NULL;
