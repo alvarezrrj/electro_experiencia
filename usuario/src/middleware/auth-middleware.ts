@@ -10,6 +10,12 @@ interface RoledUser extends Usuario {
   Rol: Rol;
 }
 
+// TODO Write middleware to go before all routes
+// if environment === 'testing'
+//    admin = find admin in db
+//    req.user = admin
+// Tihs way we bypass all AuthGuard checks
+
 export class AuthGuard {
   /**
    * Requires user to be authenticated
