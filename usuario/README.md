@@ -542,6 +542,10 @@ $ npm run dev
 $ npm run serve
 ```
 
+### Adminer
+- Host: 45.33.94.13
+- Puerto: 8081
+
 ## Despliegue
 
 Copiar `.env.example` a `.env` y setear las variables de entorno en `.env`. Luego, desde el directorio `usuario` correr
@@ -563,4 +567,8 @@ Empujar a la rama `master` dispara un despliegue en Render.
 ## Autores
 
 **[Rodrigo Alvarez](https://github.com/alvarezrrj)**
-**[Samuel Ludueña]()**
+**[Samuel Ludueña](https://github.com/sunnyclat)**
+
+## TODO 
++ Devolver 201 en pedidos de creación
++ Convertir "condicion iva" en multiple opcion: consumidor final / responsable inscripto/ monotribustista

@@ -6,6 +6,3 @@
 */
 -- AlterTable
 ALTER TABLE `usuarios` MODIFY `cuit` BIGINT NOT NULL;
-
--- CreateIndex
-CREATE UNIQUE INDEX `usuarios_cuit_key` ON `usuarios`(`cuit`);
