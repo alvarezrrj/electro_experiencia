@@ -567,6 +567,7 @@ Empujar a la rama `master` dispara un despliegue en Render.
 ## Autores
 
 **[Rodrigo Alvarez](https://github.com/alvarezrrj)**
+
 **[Samuel Ludueña](https://github.com/sunnyclat)**
 
 ## TODO 
